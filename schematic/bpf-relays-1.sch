@@ -1,0 +1,836 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 12 13
+Title "HBR/8B by R2AUK ::: https://eax.me/hbr-8b-transceiver/"
+Date "2022-12-24"
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Relay:G2RL-2-ASI-DC5 RL?
+U 1 1 63BBBF05
+P 1650 2400
+AR Path="/62866BC1/63BBBF05" Ref="RL?"  Part="1" 
+AR Path="/63A27CB7/63BBBF05" Ref="RL?"  Part="1" 
+AR Path="/63B927EB/63BBBF05" Ref="RL11"  Part="1" 
+F 0 "RL11" V 883 2400 50  0000 C CNN
+F 1 "HFD4/12" V 974 2400 50  0000 C CNN
+F 2 "Relay_THT:Relay_DPDT_Omron_G2RL" H 2300 2350 50  0001 L CNN
+F 3 "" H 1650 2400 50  0001 C CNN
+	1    1650 2400
+	0    -1   1    0   
+$EndComp
+NoConn ~ 1350 2700
+NoConn ~ 1950 2800
+NoConn ~ 1350 2900
+$Comp
+L Relay:G2RL-2-ASI-DC5 RL?
+U 1 1 63BBBF0E
+P 4800 2400
+AR Path="/62866BC1/63BBBF0E" Ref="RL?"  Part="1" 
+AR Path="/63A27CB7/63BBBF0E" Ref="RL?"  Part="1" 
+AR Path="/63B927EB/63BBBF0E" Ref="RL12"  Part="1" 
+F 0 "RL12" V 4033 2400 50  0000 C CNN
+F 1 "HFD4/12" V 4124 2400 50  0000 C CNN
+F 2 "Relay_THT:Relay_DPDT_Omron_G2RL" H 5450 2350 50  0001 L CNN
+F 3 "" H 4800 2400 50  0001 C CNN
+	1    4800 2400
+	0    1    1    0   
+$EndComp
+NoConn ~ 4500 2800
+NoConn ~ 5100 2700
+NoConn ~ 5100 2900
+NoConn ~ 5100 2300
+NoConn ~ 1350 2300
+$Comp
+L power:VCC #PWR?
+U 1 1 63BBBF19
+P 2050 1350
+AR Path="/62866BC1/63BBBF19" Ref="#PWR?"  Part="1" 
+AR Path="/63A27CB7/63BBBF19" Ref="#PWR?"  Part="1" 
+AR Path="/63B927EB/63BBBF19" Ref="#PWR0177"  Part="1" 
+F 0 "#PWR0177" H 2050 1200 50  0001 C CNN
+F 1 "VCC" H 2065 1523 50  0000 C CNN
+F 2 "" H 2050 1350 50  0001 C CNN
+F 3 "" H 2050 1350 50  0001 C CNN
+	1    2050 1350
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VCC #PWR?
+U 1 1 63BBBF1F
+P 4400 1350
+AR Path="/62866BC1/63BBBF1F" Ref="#PWR?"  Part="1" 
+AR Path="/63A27CB7/63BBBF1F" Ref="#PWR?"  Part="1" 
+AR Path="/63B927EB/63BBBF1F" Ref="#PWR0178"  Part="1" 
+F 0 "#PWR0178" H 4400 1200 50  0001 C CNN
+F 1 "VCC" H 4415 1523 50  0000 C CNN
+F 2 "" H 4400 1350 50  0001 C CNN
+F 3 "" H 4400 1350 50  0001 C CNN
+	1    4400 1350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Diode:1N4007 D?
+U 1 1 63BBBF25
+P 4800 1500
+AR Path="/62866BC1/63BBBF25" Ref="D?"  Part="1" 
+AR Path="/63A27CB7/63BBBF25" Ref="D?"  Part="1" 
+AR Path="/63B927EB/63BBBF25" Ref="D21"  Part="1" 
+F 0 "D21" H 4800 1717 50  0000 C CNN
+F 1 "1N4148" H 4800 1626 50  0000 C CNN
+F 2 "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal" H 4800 1325 50  0001 C CNN
+F 3 "" H 4800 1500 50  0001 C CNN
+	1    4800 1500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Diode:1N4007 D?
+U 1 1 63BBBF2B
+P 1650 1500
+AR Path="/62866BC1/63BBBF2B" Ref="D?"  Part="1" 
+AR Path="/63A27CB7/63BBBF2B" Ref="D?"  Part="1" 
+AR Path="/63B927EB/63BBBF2B" Ref="D20"  Part="1" 
+F 0 "D20" H 1650 1283 50  0000 C CNN
+F 1 "1N4148" H 1650 1374 50  0000 C CNN
+F 2 "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal" H 1650 1325 50  0001 C CNN
+F 3 "" H 1650 1500 50  0001 C CNN
+	1    1650 1500
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	1950 2000 2050 2000
+Wire Wire Line
+	2050 2000 2050 1500
+Wire Wire Line
+	1800 1500 2050 1500
+Connection ~ 2050 1500
+Wire Wire Line
+	2050 1500 2050 1350
+Wire Wire Line
+	4500 2000 4400 2000
+Wire Wire Line
+	4400 2000 4400 1500
+Wire Wire Line
+	4650 1500 4400 1500
+Connection ~ 4400 1500
+Wire Wire Line
+	4400 1500 4400 1350
+Wire Wire Line
+	1350 2000 1250 2000
+Wire Wire Line
+	1250 2000 1250 1500
+Wire Wire Line
+	1250 1500 1500 1500
+Wire Wire Line
+	1250 1500 1250 1000
+Connection ~ 1250 1500
+Wire Wire Line
+	4950 1500 5200 1500
+Wire Wire Line
+	5200 2000 5200 1500
+Wire Wire Line
+	5200 2000 5100 2000
+Connection ~ 5200 1500
+Wire Wire Line
+	5200 1500 5200 1000
+$Comp
+L Transistor_BJT:2N3904 Q?
+U 1 1 63BBBF45
+P 2550 1550
+AR Path="/62866BC1/63BBBF45" Ref="Q?"  Part="1" 
+AR Path="/63A27CB7/63BBBF45" Ref="Q?"  Part="1" 
+AR Path="/63B927EB/63BBBF45" Ref="Q24"  Part="1" 
+F 0 "Q24" H 2741 1596 50  0000 L CNN
+F 1 "2N3904" H 2741 1505 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 2750 1475 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/2N/2N3904.pdf" H 2550 1550 50  0001 L CNN
+	1    2550 1550
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 63BBBF4B
+P 2450 1900
+AR Path="/62866BC1/63BBBF4B" Ref="#PWR?"  Part="1" 
+AR Path="/63A27CB7/63BBBF4B" Ref="#PWR?"  Part="1" 
+AR Path="/63B927EB/63BBBF4B" Ref="#PWR0181"  Part="1" 
+F 0 "#PWR0181" H 2450 1650 50  0001 C CNN
+F 1 "GND" H 2455 1727 50  0001 C CNN
+F 2 "" H 2450 1900 50  0001 C CNN
+F 3 "" H 2450 1900 50  0001 C CNN
+	1    2450 1900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2450 1900 2450 1750
+$Comp
+L Device:R R?
+U 1 1 63BBBF52
+P 3000 1550
+AR Path="/62866BC1/63BBBF52" Ref="R?"  Part="1" 
+AR Path="/63A27CB7/63BBBF52" Ref="R?"  Part="1" 
+AR Path="/63B927EB/63BBBF52" Ref="R87"  Part="1" 
+F 0 "R87" V 2793 1550 50  0000 C CNN
+F 1 "4.7K" V 2884 1550 50  0000 C CNN
+F 2 "" V 2930 1550 50  0001 C CNN
+F 3 "~" H 3000 1550 50  0001 C CNN
+	1    3000 1550
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2850 1550 2750 1550
+Text GLabel 3450 1900 0    50   Input ~ 0
+CTL_BPF_80
+Text GLabel 5400 2500 2    50   Output ~ 0
+BPFS_OUT
+Text GLabel 950  2500 0    50   Input ~ 0
+BPFS_IN
+Wire Wire Line
+	5400 2500 5100 2500
+Wire Wire Line
+	950  2500 1350 2500
+Wire Wire Line
+	1250 1000 2450 1000
+Text GLabel 2050 2400 2    50   Output ~ 0
+BPF_80_IN
+Text GLabel 4350 2400 0    50   Input ~ 0
+BPF_80_OUT
+Wire Wire Line
+	4350 2400 4500 2400
+Wire Wire Line
+	2050 2400 1950 2400
+Wire Wire Line
+	2450 1000 2450 1350
+Wire Wire Line
+	3600 1550 3600 1900
+Wire Wire Line
+	3600 1900 3450 1900
+Wire Wire Line
+	3150 1550 3600 1550
+$Comp
+L Relay:G2RL-2-ASI-DC5 RL?
+U 1 1 63BBBF67
+P 1650 5150
+AR Path="/62866BC1/63BBBF67" Ref="RL?"  Part="1" 
+AR Path="/63A27CB7/63BBBF67" Ref="RL?"  Part="1" 
+AR Path="/63B927EB/63BBBF67" Ref="RL15"  Part="1" 
+F 0 "RL15" V 883 5150 50  0000 C CNN
+F 1 "HFD4/12" V 974 5150 50  0000 C CNN
+F 2 "Relay_THT:Relay_DPDT_Omron_G2RL" H 2300 5100 50  0001 L CNN
+F 3 "" H 1650 5150 50  0001 C CNN
+	1    1650 5150
+	0    -1   1    0   
+$EndComp
+NoConn ~ 1350 5450
+NoConn ~ 1950 5550
+NoConn ~ 1350 5650
+$Comp
+L Relay:G2RL-2-ASI-DC5 RL?
+U 1 1 63BBBF70
+P 4800 5150
+AR Path="/62866BC1/63BBBF70" Ref="RL?"  Part="1" 
+AR Path="/63A27CB7/63BBBF70" Ref="RL?"  Part="1" 
+AR Path="/63B927EB/63BBBF70" Ref="RL16"  Part="1" 
+F 0 "RL16" V 4033 5150 50  0000 C CNN
+F 1 "HFD4/12" V 4124 5150 50  0000 C CNN
+F 2 "Relay_THT:Relay_DPDT_Omron_G2RL" H 5450 5100 50  0001 L CNN
+F 3 "" H 4800 5150 50  0001 C CNN
+	1    4800 5150
+	0    1    1    0   
+$EndComp
+NoConn ~ 4500 5550
+NoConn ~ 5100 5450
+NoConn ~ 5100 5650
+NoConn ~ 5100 5050
+NoConn ~ 1350 5050
+$Comp
+L power:VCC #PWR?
+U 1 1 63BBBF7B
+P 2050 4100
+AR Path="/62866BC1/63BBBF7B" Ref="#PWR?"  Part="1" 
+AR Path="/63A27CB7/63BBBF7B" Ref="#PWR?"  Part="1" 
+AR Path="/63B927EB/63BBBF7B" Ref="#PWR0183"  Part="1" 
+F 0 "#PWR0183" H 2050 3950 50  0001 C CNN
+F 1 "VCC" H 2065 4273 50  0000 C CNN
+F 2 "" H 2050 4100 50  0001 C CNN
+F 3 "" H 2050 4100 50  0001 C CNN
+	1    2050 4100
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VCC #PWR?
+U 1 1 63BBBF81
+P 4400 4100
+AR Path="/62866BC1/63BBBF81" Ref="#PWR?"  Part="1" 
+AR Path="/63A27CB7/63BBBF81" Ref="#PWR?"  Part="1" 
+AR Path="/63B927EB/63BBBF81" Ref="#PWR0184"  Part="1" 
+F 0 "#PWR0184" H 4400 3950 50  0001 C CNN
+F 1 "VCC" H 4415 4273 50  0000 C CNN
+F 2 "" H 4400 4100 50  0001 C CNN
+F 3 "" H 4400 4100 50  0001 C CNN
+	1    4400 4100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Diode:1N4007 D?
+U 1 1 63BBBF87
+P 4800 4250
+AR Path="/62866BC1/63BBBF87" Ref="D?"  Part="1" 
+AR Path="/63A27CB7/63BBBF87" Ref="D?"  Part="1" 
+AR Path="/63B927EB/63BBBF87" Ref="D25"  Part="1" 
+F 0 "D25" H 4800 4467 50  0000 C CNN
+F 1 "1N4148" H 4800 4376 50  0000 C CNN
+F 2 "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal" H 4800 4075 50  0001 C CNN
+F 3 "" H 4800 4250 50  0001 C CNN
+	1    4800 4250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Diode:1N4007 D?
+U 1 1 63BBBF8D
+P 1650 4250
+AR Path="/62866BC1/63BBBF8D" Ref="D?"  Part="1" 
+AR Path="/63A27CB7/63BBBF8D" Ref="D?"  Part="1" 
+AR Path="/63B927EB/63BBBF8D" Ref="D24"  Part="1" 
+F 0 "D24" H 1650 4033 50  0000 C CNN
+F 1 "1N4148" H 1650 4124 50  0000 C CNN
+F 2 "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal" H 1650 4075 50  0001 C CNN
+F 3 "" H 1650 4250 50  0001 C CNN
+	1    1650 4250
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	1950 4750 2050 4750
+Wire Wire Line
+	2050 4750 2050 4250
+Wire Wire Line
+	1800 4250 2050 4250
+Connection ~ 2050 4250
+Wire Wire Line
+	2050 4250 2050 4100
+Wire Wire Line
+	4500 4750 4400 4750
+Wire Wire Line
+	4400 4750 4400 4250
+Wire Wire Line
+	4650 4250 4400 4250
+Connection ~ 4400 4250
+Wire Wire Line
+	4400 4250 4400 4100
+Wire Wire Line
+	1350 4750 1250 4750
+Wire Wire Line
+	1250 4750 1250 4250
+Wire Wire Line
+	1250 4250 1500 4250
+Wire Wire Line
+	1250 4250 1250 3750
+Connection ~ 1250 4250
+Wire Wire Line
+	4950 4250 5200 4250
+Wire Wire Line
+	5200 4750 5200 4250
+Wire Wire Line
+	5200 4750 5100 4750
+Connection ~ 5200 4250
+Wire Wire Line
+	5200 4250 5200 3750
+$Comp
+L Transistor_BJT:2N3904 Q?
+U 1 1 63BBBFA7
+P 2550 4300
+AR Path="/62866BC1/63BBBFA7" Ref="Q?"  Part="1" 
+AR Path="/63A27CB7/63BBBFA7" Ref="Q?"  Part="1" 
+AR Path="/63B927EB/63BBBFA7" Ref="Q26"  Part="1" 
+F 0 "Q26" H 2741 4346 50  0000 L CNN
+F 1 "2N3904" H 2741 4255 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 2750 4225 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/2N/2N3904.pdf" H 2550 4300 50  0001 L CNN
+	1    2550 4300
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 63BBBFAD
+P 2450 4650
+AR Path="/62866BC1/63BBBFAD" Ref="#PWR?"  Part="1" 
+AR Path="/63A27CB7/63BBBFAD" Ref="#PWR?"  Part="1" 
+AR Path="/63B927EB/63BBBFAD" Ref="#PWR0187"  Part="1" 
+F 0 "#PWR0187" H 2450 4400 50  0001 C CNN
+F 1 "GND" H 2455 4477 50  0001 C CNN
+F 2 "" H 2450 4650 50  0001 C CNN
+F 3 "" H 2450 4650 50  0001 C CNN
+	1    2450 4650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2450 4650 2450 4500
+$Comp
+L Device:R R?
+U 1 1 63BBBFB4
+P 3000 4300
+AR Path="/62866BC1/63BBBFB4" Ref="R?"  Part="1" 
+AR Path="/63A27CB7/63BBBFB4" Ref="R?"  Part="1" 
+AR Path="/63B927EB/63BBBFB4" Ref="R89"  Part="1" 
+F 0 "R89" V 2793 4300 50  0000 C CNN
+F 1 "4.7K" V 2884 4300 50  0000 C CNN
+F 2 "" V 2930 4300 50  0001 C CNN
+F 3 "~" H 3000 4300 50  0001 C CNN
+	1    3000 4300
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2850 4300 2750 4300
+Text GLabel 3450 4650 0    50   Input ~ 0
+CTL_BPF_30
+Text GLabel 5400 5250 2    50   Output ~ 0
+BPFS_OUT
+Text GLabel 950  5250 0    50   Input ~ 0
+BPFS_IN
+Wire Wire Line
+	5400 5250 5100 5250
+Wire Wire Line
+	950  5250 1350 5250
+Wire Wire Line
+	1250 3750 2450 3750
+Text GLabel 2050 5150 2    50   Output ~ 0
+BPF_30_IN
+Text GLabel 4350 5150 0    50   Input ~ 0
+BPF_30_OUT
+Wire Wire Line
+	4350 5150 4500 5150
+Wire Wire Line
+	2050 5150 1950 5150
+Wire Wire Line
+	2450 3750 2450 4100
+Wire Wire Line
+	3600 4300 3600 4650
+Wire Wire Line
+	3600 4650 3450 4650
+Wire Wire Line
+	3150 4300 3600 4300
+$Comp
+L Relay:G2RL-2-ASI-DC5 RL?
+U 1 1 63BBBFC9
+P 7100 2400
+AR Path="/62866BC1/63BBBFC9" Ref="RL?"  Part="1" 
+AR Path="/63A27CB7/63BBBFC9" Ref="RL?"  Part="1" 
+AR Path="/63B927EB/63BBBFC9" Ref="RL13"  Part="1" 
+F 0 "RL13" V 6333 2400 50  0000 C CNN
+F 1 "HFD4/12" V 6424 2400 50  0000 C CNN
+F 2 "Relay_THT:Relay_DPDT_Omron_G2RL" H 7750 2350 50  0001 L CNN
+F 3 "" H 7100 2400 50  0001 C CNN
+	1    7100 2400
+	0    -1   1    0   
+$EndComp
+NoConn ~ 6800 2700
+NoConn ~ 7400 2800
+NoConn ~ 6800 2900
+NoConn ~ 6800 2300
+$Comp
+L power:VCC #PWR?
+U 1 1 63BBBFD3
+P 7500 1350
+AR Path="/62866BC1/63BBBFD3" Ref="#PWR?"  Part="1" 
+AR Path="/63A27CB7/63BBBFD3" Ref="#PWR?"  Part="1" 
+AR Path="/63B927EB/63BBBFD3" Ref="#PWR0179"  Part="1" 
+F 0 "#PWR0179" H 7500 1200 50  0001 C CNN
+F 1 "VCC" H 7515 1523 50  0000 C CNN
+F 2 "" H 7500 1350 50  0001 C CNN
+F 3 "" H 7500 1350 50  0001 C CNN
+	1    7500 1350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Diode:1N4007 D?
+U 1 1 63BBBFD9
+P 7100 1500
+AR Path="/62866BC1/63BBBFD9" Ref="D?"  Part="1" 
+AR Path="/63A27CB7/63BBBFD9" Ref="D?"  Part="1" 
+AR Path="/63B927EB/63BBBFD9" Ref="D22"  Part="1" 
+F 0 "D22" H 7100 1283 50  0000 C CNN
+F 1 "1N4148" H 7100 1374 50  0000 C CNN
+F 2 "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal" H 7100 1325 50  0001 C CNN
+F 3 "" H 7100 1500 50  0001 C CNN
+	1    7100 1500
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	7400 2000 7500 2000
+Wire Wire Line
+	7500 2000 7500 1500
+Wire Wire Line
+	7250 1500 7500 1500
+Connection ~ 7500 1500
+Wire Wire Line
+	7500 1500 7500 1350
+Wire Wire Line
+	6800 2000 6700 2000
+Wire Wire Line
+	6700 2000 6700 1500
+Wire Wire Line
+	6700 1500 6950 1500
+Wire Wire Line
+	6700 1500 6700 1000
+Connection ~ 6700 1500
+$Comp
+L Transistor_BJT:2N3904 Q?
+U 1 1 63BBBFE9
+P 8000 1550
+AR Path="/62866BC1/63BBBFE9" Ref="Q?"  Part="1" 
+AR Path="/63A27CB7/63BBBFE9" Ref="Q?"  Part="1" 
+AR Path="/63B927EB/63BBBFE9" Ref="Q25"  Part="1" 
+F 0 "Q25" H 8191 1596 50  0000 L CNN
+F 1 "2N3904" H 8191 1505 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 8200 1475 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/2N/2N3904.pdf" H 8000 1550 50  0001 L CNN
+	1    8000 1550
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 63BBBFEF
+P 7900 1900
+AR Path="/62866BC1/63BBBFEF" Ref="#PWR?"  Part="1" 
+AR Path="/63A27CB7/63BBBFEF" Ref="#PWR?"  Part="1" 
+AR Path="/63B927EB/63BBBFEF" Ref="#PWR0182"  Part="1" 
+F 0 "#PWR0182" H 7900 1650 50  0001 C CNN
+F 1 "GND" H 7905 1727 50  0001 C CNN
+F 2 "" H 7900 1900 50  0001 C CNN
+F 3 "" H 7900 1900 50  0001 C CNN
+	1    7900 1900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7900 1900 7900 1750
+$Comp
+L Device:R R?
+U 1 1 63BBBFF6
+P 8450 1550
+AR Path="/62866BC1/63BBBFF6" Ref="R?"  Part="1" 
+AR Path="/63A27CB7/63BBBFF6" Ref="R?"  Part="1" 
+AR Path="/63B927EB/63BBBFF6" Ref="R88"  Part="1" 
+F 0 "R88" V 8243 1550 50  0000 C CNN
+F 1 "4.7K" V 8334 1550 50  0000 C CNN
+F 2 "" V 8380 1550 50  0001 C CNN
+F 3 "~" H 8450 1550 50  0001 C CNN
+	1    8450 1550
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	8300 1550 8200 1550
+Text GLabel 8900 1900 0    50   Input ~ 0
+CTL_BPF_40
+Text GLabel 6400 2500 0    50   Input ~ 0
+BPFS_IN
+Wire Wire Line
+	6400 2500 6800 2500
+Wire Wire Line
+	6700 1000 7900 1000
+Text GLabel 7500 2400 2    50   Output ~ 0
+BPF_40_IN
+Wire Wire Line
+	7500 2400 7400 2400
+Wire Wire Line
+	7900 1000 7900 1350
+Wire Wire Line
+	9050 1550 9050 1900
+Wire Wire Line
+	9050 1900 8900 1900
+Wire Wire Line
+	8600 1550 9050 1550
+$Comp
+L Relay:G2RL-2-ASI-DC5 RL?
+U 1 1 63BBC007
+P 7100 5150
+AR Path="/62866BC1/63BBC007" Ref="RL?"  Part="1" 
+AR Path="/63A27CB7/63BBC007" Ref="RL?"  Part="1" 
+AR Path="/63B927EB/63BBC007" Ref="RL17"  Part="1" 
+F 0 "RL17" V 6333 5150 50  0000 C CNN
+F 1 "HFD4/12" V 6424 5150 50  0000 C CNN
+F 2 "Relay_THT:Relay_DPDT_Omron_G2RL" H 7750 5100 50  0001 L CNN
+F 3 "" H 7100 5150 50  0001 C CNN
+	1    7100 5150
+	0    -1   1    0   
+$EndComp
+NoConn ~ 6800 5450
+NoConn ~ 7400 5550
+NoConn ~ 6800 5650
+$Comp
+L Relay:G2RL-2-ASI-DC5 RL?
+U 1 1 63BBC010
+P 10050 5150
+AR Path="/62866BC1/63BBC010" Ref="RL?"  Part="1" 
+AR Path="/63A27CB7/63BBC010" Ref="RL?"  Part="1" 
+AR Path="/63B927EB/63BBC010" Ref="RL18"  Part="1" 
+F 0 "RL18" V 9283 5150 50  0000 C CNN
+F 1 "HFD4/12" V 9374 5150 50  0000 C CNN
+F 2 "Relay_THT:Relay_DPDT_Omron_G2RL" H 10700 5100 50  0001 L CNN
+F 3 "" H 10050 5150 50  0001 C CNN
+	1    10050 5150
+	0    1    1    0   
+$EndComp
+NoConn ~ 9750 5550
+NoConn ~ 10350 5450
+NoConn ~ 10350 5650
+NoConn ~ 10350 5050
+NoConn ~ 6800 5050
+$Comp
+L power:VCC #PWR?
+U 1 1 63BBC01B
+P 7500 4100
+AR Path="/62866BC1/63BBC01B" Ref="#PWR?"  Part="1" 
+AR Path="/63A27CB7/63BBC01B" Ref="#PWR?"  Part="1" 
+AR Path="/63B927EB/63BBC01B" Ref="#PWR0185"  Part="1" 
+F 0 "#PWR0185" H 7500 3950 50  0001 C CNN
+F 1 "VCC" H 7515 4273 50  0000 C CNN
+F 2 "" H 7500 4100 50  0001 C CNN
+F 3 "" H 7500 4100 50  0001 C CNN
+	1    7500 4100
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VCC #PWR?
+U 1 1 63BBC021
+P 9650 4100
+AR Path="/62866BC1/63BBC021" Ref="#PWR?"  Part="1" 
+AR Path="/63A27CB7/63BBC021" Ref="#PWR?"  Part="1" 
+AR Path="/63B927EB/63BBC021" Ref="#PWR0186"  Part="1" 
+F 0 "#PWR0186" H 9650 3950 50  0001 C CNN
+F 1 "VCC" H 9665 4273 50  0000 C CNN
+F 2 "" H 9650 4100 50  0001 C CNN
+F 3 "" H 9650 4100 50  0001 C CNN
+	1    9650 4100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Diode:1N4007 D?
+U 1 1 63BBC027
+P 10050 4250
+AR Path="/62866BC1/63BBC027" Ref="D?"  Part="1" 
+AR Path="/63A27CB7/63BBC027" Ref="D?"  Part="1" 
+AR Path="/63B927EB/63BBC027" Ref="D27"  Part="1" 
+F 0 "D27" H 10050 4467 50  0000 C CNN
+F 1 "1N4148" H 10050 4376 50  0000 C CNN
+F 2 "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal" H 10050 4075 50  0001 C CNN
+F 3 "" H 10050 4250 50  0001 C CNN
+	1    10050 4250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Diode:1N4007 D?
+U 1 1 63BBC02D
+P 7100 4250
+AR Path="/62866BC1/63BBC02D" Ref="D?"  Part="1" 
+AR Path="/63A27CB7/63BBC02D" Ref="D?"  Part="1" 
+AR Path="/63B927EB/63BBC02D" Ref="D26"  Part="1" 
+F 0 "D26" H 7100 4033 50  0000 C CNN
+F 1 "1N4148" H 7100 4124 50  0000 C CNN
+F 2 "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal" H 7100 4075 50  0001 C CNN
+F 3 "" H 7100 4250 50  0001 C CNN
+	1    7100 4250
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	7400 4750 7500 4750
+Wire Wire Line
+	7500 4750 7500 4250
+Wire Wire Line
+	7250 4250 7500 4250
+Connection ~ 7500 4250
+Wire Wire Line
+	7500 4250 7500 4100
+Wire Wire Line
+	9750 4750 9650 4750
+Wire Wire Line
+	9650 4750 9650 4250
+Wire Wire Line
+	9900 4250 9650 4250
+Connection ~ 9650 4250
+Wire Wire Line
+	9650 4250 9650 4100
+Wire Wire Line
+	6800 4750 6700 4750
+Wire Wire Line
+	6700 4750 6700 4250
+Wire Wire Line
+	6700 4250 6950 4250
+Wire Wire Line
+	6700 4250 6700 3750
+Connection ~ 6700 4250
+Wire Wire Line
+	10200 4250 10450 4250
+Wire Wire Line
+	10450 4750 10450 4250
+Wire Wire Line
+	10450 4750 10350 4750
+Connection ~ 10450 4250
+Wire Wire Line
+	10450 4250 10450 3750
+$Comp
+L Transistor_BJT:2N3904 Q?
+U 1 1 63BBC047
+P 8000 4300
+AR Path="/62866BC1/63BBC047" Ref="Q?"  Part="1" 
+AR Path="/63A27CB7/63BBC047" Ref="Q?"  Part="1" 
+AR Path="/63B927EB/63BBC047" Ref="Q27"  Part="1" 
+F 0 "Q27" H 8191 4346 50  0000 L CNN
+F 1 "2N3904" H 8191 4255 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 8200 4225 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/2N/2N3904.pdf" H 8000 4300 50  0001 L CNN
+	1    8000 4300
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 63BBC04D
+P 7900 4650
+AR Path="/62866BC1/63BBC04D" Ref="#PWR?"  Part="1" 
+AR Path="/63A27CB7/63BBC04D" Ref="#PWR?"  Part="1" 
+AR Path="/63B927EB/63BBC04D" Ref="#PWR0188"  Part="1" 
+F 0 "#PWR0188" H 7900 4400 50  0001 C CNN
+F 1 "GND" H 7905 4477 50  0001 C CNN
+F 2 "" H 7900 4650 50  0001 C CNN
+F 3 "" H 7900 4650 50  0001 C CNN
+	1    7900 4650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7900 4650 7900 4500
+$Comp
+L Device:R R?
+U 1 1 63BBC054
+P 8450 4300
+AR Path="/62866BC1/63BBC054" Ref="R?"  Part="1" 
+AR Path="/63A27CB7/63BBC054" Ref="R?"  Part="1" 
+AR Path="/63B927EB/63BBC054" Ref="R90"  Part="1" 
+F 0 "R90" V 8243 4300 50  0000 C CNN
+F 1 "4.7K" V 8334 4300 50  0000 C CNN
+F 2 "" V 8380 4300 50  0001 C CNN
+F 3 "~" H 8450 4300 50  0001 C CNN
+	1    8450 4300
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	8300 4300 8200 4300
+Text GLabel 8900 4650 0    50   Input ~ 0
+CTL_BPF_20
+Text GLabel 10650 5250 2    50   Output ~ 0
+BPFS_OUT
+Text GLabel 6400 5250 0    50   Input ~ 0
+BPFS_IN
+Wire Wire Line
+	10650 5250 10350 5250
+Wire Wire Line
+	6400 5250 6800 5250
+Wire Wire Line
+	6700 3750 7900 3750
+Text GLabel 7500 5150 2    50   Output ~ 0
+BPF_20_IN
+Text GLabel 9600 5150 0    50   Input ~ 0
+BPF_20_OUT
+Wire Wire Line
+	9600 5150 9750 5150
+Wire Wire Line
+	7500 5150 7400 5150
+Wire Wire Line
+	7900 3750 7900 4100
+Wire Wire Line
+	9050 4300 9050 4650
+Wire Wire Line
+	9050 4650 8900 4650
+Wire Wire Line
+	8600 4300 9050 4300
+Wire Wire Line
+	9600 2400 9750 2400
+Text GLabel 9600 2400 0    50   Input ~ 0
+BPF_40_OUT
+Wire Wire Line
+	10650 2500 10350 2500
+Text GLabel 10650 2500 2    50   Output ~ 0
+BPFS_OUT
+Wire Wire Line
+	10450 1500 10450 1000
+Connection ~ 10450 1500
+Wire Wire Line
+	10450 2000 10350 2000
+Wire Wire Line
+	10450 2000 10450 1500
+Wire Wire Line
+	10200 1500 10450 1500
+Wire Wire Line
+	9650 1500 9650 1350
+Connection ~ 9650 1500
+Wire Wire Line
+	9900 1500 9650 1500
+Wire Wire Line
+	9650 2000 9650 1500
+Wire Wire Line
+	9750 2000 9650 2000
+$Comp
+L Diode:1N4007 D?
+U 1 1 63BBC077
+P 10050 1500
+AR Path="/62866BC1/63BBC077" Ref="D?"  Part="1" 
+AR Path="/63A27CB7/63BBC077" Ref="D?"  Part="1" 
+AR Path="/63B927EB/63BBC077" Ref="D23"  Part="1" 
+F 0 "D23" H 10050 1717 50  0000 C CNN
+F 1 "1N4148" H 10050 1626 50  0000 C CNN
+F 2 "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal" H 10050 1325 50  0001 C CNN
+F 3 "" H 10050 1500 50  0001 C CNN
+	1    10050 1500
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VCC #PWR?
+U 1 1 63BBC07D
+P 9650 1350
+AR Path="/62866BC1/63BBC07D" Ref="#PWR?"  Part="1" 
+AR Path="/63A27CB7/63BBC07D" Ref="#PWR?"  Part="1" 
+AR Path="/63B927EB/63BBC07D" Ref="#PWR0180"  Part="1" 
+F 0 "#PWR0180" H 9650 1200 50  0001 C CNN
+F 1 "VCC" H 9665 1523 50  0000 C CNN
+F 2 "" H 9650 1350 50  0001 C CNN
+F 3 "" H 9650 1350 50  0001 C CNN
+	1    9650 1350
+	1    0    0    -1  
+$EndComp
+NoConn ~ 10350 2300
+NoConn ~ 10350 2900
+NoConn ~ 10350 2700
+NoConn ~ 9750 2800
+$Comp
+L Relay:G2RL-2-ASI-DC5 RL?
+U 1 1 63BBC087
+P 10050 2400
+AR Path="/62866BC1/63BBC087" Ref="RL?"  Part="1" 
+AR Path="/63A27CB7/63BBC087" Ref="RL?"  Part="1" 
+AR Path="/63B927EB/63BBC087" Ref="RL14"  Part="1" 
+F 0 "RL14" V 9283 2400 50  0000 C CNN
+F 1 "HFD4/12" V 9374 2400 50  0000 C CNN
+F 2 "Relay_THT:Relay_DPDT_Omron_G2RL" H 10700 2350 50  0001 L CNN
+F 3 "" H 10050 2400 50  0001 C CNN
+	1    10050 2400
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	7900 1000 10450 1000
+Connection ~ 7900 1000
+Wire Wire Line
+	7900 3750 10450 3750
+Connection ~ 7900 3750
+Wire Wire Line
+	2450 1000 5200 1000
+Connection ~ 2450 1000
+Wire Wire Line
+	2450 3750 5200 3750
+Connection ~ 2450 3750
+$EndSCHEMATC

@@ -1,0 +1,1382 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 3 13
+Title "HBR/8B by R2AUK ::: https://eax.me/hbr-8b-transceiver/"
+Date "2022-12-24"
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Device:CTRIM C33
+U 1 1 62953FFE
+P 3350 1350
+F 0 "C33" V 3602 1350 50  0000 C CNN
+F 1 "50p" V 3511 1350 50  0000 C CNN
+F 2 "" H 3350 1350 50  0001 C CNN
+F 3 "~" H 3350 1350 50  0001 C CNN
+	1    3350 1350
+	0    1    -1   0   
+$EndComp
+Text GLabel 1650 1350 0    50   Input ~ 0
+BPF_80_IN
+Text GLabel 4950 1350 2    50   Output ~ 0
+BPF_80_OUT
+$Comp
+L Device:L_Core_Ferrite_Coupled_1423 L14
+U 1 1 63C11369
+P 1950 1700
+F 0 "L14" V 1904 1844 50  0000 L CNN
+F 1 "T37-2" V 1995 1844 50  0000 L CNN
+F 2 "" H 1950 1700 50  0001 C CNN
+F 3 "~" H 1950 1700 50  0001 C CNN
+	1    1950 1700
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:C C35
+U 1 1 63C1365A
+P 2550 1700
+F 0 "C35" H 2665 1746 50  0000 L CNN
+F 1 "470p" H 2665 1655 50  0000 L CNN
+F 2 "" H 2588 1550 50  0001 C CNN
+F 3 "~" H 2550 1700 50  0001 C CNN
+	1    2550 1700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CTRIM C36
+U 1 1 63C13ED1
+P 2950 1700
+F 0 "C36" H 3065 1746 50  0000 L CNN
+F 1 "30p" H 3065 1655 50  0000 L CNN
+F 2 "" H 2950 1700 50  0001 C CNN
+F 3 "~" H 2950 1700 50  0001 C CNN
+	1    2950 1700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:L_Core_Ferrite_Coupled_1423 L15
+U 1 1 63C14D68
+P 4700 1700
+F 0 "L15" V 4654 1512 50  0000 R CNN
+F 1 "T37-2" V 4745 1512 50  0000 R CNN
+F 2 "" H 4700 1700 50  0001 C CNN
+F 3 "~" H 4700 1700 50  0001 C CNN
+	1    4700 1700
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	4800 1500 4800 1350
+Wire Wire Line
+	4800 1350 4950 1350
+Wire Wire Line
+	1850 1500 1850 1350
+Wire Wire Line
+	1850 1350 1650 1350
+Wire Wire Line
+	2050 1900 2050 2000
+Wire Wire Line
+	2050 2000 2550 2000
+Wire Wire Line
+	4600 2000 4600 1900
+Wire Wire Line
+	4600 2000 4800 2000
+Wire Wire Line
+	4800 2000 4800 1900
+Connection ~ 4600 2000
+Wire Wire Line
+	2050 2000 1850 2000
+Wire Wire Line
+	1850 2000 1850 1900
+Connection ~ 2050 2000
+Wire Wire Line
+	2050 1500 2050 1350
+Wire Wire Line
+	2050 1350 2550 1350
+Wire Wire Line
+	3500 1350 3750 1350
+Wire Wire Line
+	4600 1350 4600 1500
+Wire Wire Line
+	2550 1350 2550 1550
+Connection ~ 2550 1350
+Wire Wire Line
+	2550 1850 2550 2000
+Connection ~ 2550 2000
+$Comp
+L Device:CTRIM C37
+U 1 1 63C14D7C
+P 3750 1700
+F 0 "C37" H 3636 1746 50  0000 R CNN
+F 1 "30p" H 3636 1655 50  0000 R CNN
+F 2 "" H 3750 1700 50  0001 C CNN
+F 3 "~" H 3750 1700 50  0001 C CNN
+	1    3750 1700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C38
+U 1 1 63C14D72
+P 4100 1700
+F 0 "C38" H 3985 1746 50  0000 R CNN
+F 1 "470p" H 3985 1655 50  0000 R CNN
+F 2 "" H 4138 1550 50  0001 C CNN
+F 3 "~" H 4100 1700 50  0001 C CNN
+	1    4100 1700
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	3750 1350 3750 1550
+Connection ~ 3750 1350
+Wire Wire Line
+	3750 1350 4100 1350
+Wire Wire Line
+	3750 1850 3750 2000
+Connection ~ 3750 2000
+Wire Wire Line
+	3750 2000 4100 2000
+Wire Wire Line
+	4100 1350 4100 1550
+Connection ~ 4100 1350
+Wire Wire Line
+	4100 1350 4600 1350
+Wire Wire Line
+	4100 1850 4100 2000
+Connection ~ 4100 2000
+Wire Wire Line
+	4100 2000 4600 2000
+$Comp
+L power:GND #PWR040
+U 1 1 63C2197A
+P 3350 2150
+F 0 "#PWR040" H 3350 1900 50  0001 C CNN
+F 1 "GND" H 3355 1977 50  0001 C CNN
+F 2 "" H 3350 2150 50  0001 C CNN
+F 3 "" H 3350 2150 50  0001 C CNN
+	1    3350 2150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3350 2150 3350 2000
+Connection ~ 3350 2000
+Wire Wire Line
+	3350 2000 3750 2000
+Wire Wire Line
+	2550 2000 2950 2000
+Wire Wire Line
+	2550 1350 2950 1350
+Wire Wire Line
+	2950 1350 2950 1550
+Connection ~ 2950 1350
+Wire Wire Line
+	2950 1350 3200 1350
+Wire Wire Line
+	2950 1850 2950 2000
+Connection ~ 2950 2000
+Wire Wire Line
+	2950 2000 3350 2000
+Text Notes 1850 1200 0    50   ~ 0
+6:30T
+Text Notes 4600 1200 0    50   ~ 0
+30:6T
+$Comp
+L Device:CTRIM C43
+U 1 1 63C2FAD1
+P 3350 2700
+F 0 "C43" V 3602 2700 50  0000 C CNN
+F 1 "20p" V 3511 2700 50  0000 C CNN
+F 2 "" H 3350 2700 50  0001 C CNN
+F 3 "~" H 3350 2700 50  0001 C CNN
+	1    3350 2700
+	0    1    -1   0   
+$EndComp
+Text GLabel 1650 2700 0    50   Input ~ 0
+BPF_40_IN
+Text GLabel 4950 2700 2    50   Output ~ 0
+BPF_40_OUT
+$Comp
+L Device:L_Core_Ferrite_Coupled_1423 L18
+U 1 1 63C2FADD
+P 1950 3050
+F 0 "L18" V 1904 3194 50  0000 L CNN
+F 1 "T37-6" V 1995 3194 50  0000 L CNN
+F 2 "" H 1950 3050 50  0001 C CNN
+F 3 "~" H 1950 3050 50  0001 C CNN
+	1    1950 3050
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:C C45
+U 1 1 63C2FAE7
+P 2550 3050
+F 0 "C45" H 2665 3096 50  0000 L CNN
+F 1 "150p" H 2665 3005 50  0000 L CNN
+F 2 "" H 2588 2900 50  0001 C CNN
+F 3 "~" H 2550 3050 50  0001 C CNN
+	1    2550 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CTRIM C46
+U 1 1 63C2FAF1
+P 2950 3050
+F 0 "C46" H 3065 3096 50  0000 L CNN
+F 1 "30p" H 3065 3005 50  0000 L CNN
+F 2 "" H 2950 3050 50  0001 C CNN
+F 3 "~" H 2950 3050 50  0001 C CNN
+	1    2950 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:L_Core_Ferrite_Coupled_1423 L19
+U 1 1 63C2FAFB
+P 4700 3050
+F 0 "L19" V 4654 2862 50  0000 R CNN
+F 1 "T37-6" V 4745 2862 50  0000 R CNN
+F 2 "" H 4700 3050 50  0001 C CNN
+F 3 "~" H 4700 3050 50  0001 C CNN
+	1    4700 3050
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	4800 2850 4800 2700
+Wire Wire Line
+	4800 2700 4950 2700
+Wire Wire Line
+	1850 2850 1850 2700
+Wire Wire Line
+	1850 2700 1650 2700
+Wire Wire Line
+	2050 3250 2050 3350
+Wire Wire Line
+	2050 3350 2550 3350
+Wire Wire Line
+	4600 3350 4600 3250
+Wire Wire Line
+	4600 3350 4800 3350
+Wire Wire Line
+	4800 3350 4800 3250
+Connection ~ 4600 3350
+Wire Wire Line
+	2050 3350 1850 3350
+Wire Wire Line
+	1850 3350 1850 3250
+Connection ~ 2050 3350
+Wire Wire Line
+	2050 2850 2050 2700
+Wire Wire Line
+	2050 2700 2550 2700
+Wire Wire Line
+	3500 2700 3750 2700
+Wire Wire Line
+	4600 2700 4600 2850
+Wire Wire Line
+	2550 2700 2550 2900
+Connection ~ 2550 2700
+Wire Wire Line
+	2550 3200 2550 3350
+Connection ~ 2550 3350
+$Comp
+L Device:CTRIM C47
+U 1 1 63C2FB1A
+P 3750 3050
+F 0 "C47" H 3636 3096 50  0000 R CNN
+F 1 "30p" H 3636 3005 50  0000 R CNN
+F 2 "" H 3750 3050 50  0001 C CNN
+F 3 "~" H 3750 3050 50  0001 C CNN
+	1    3750 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C48
+U 1 1 63C2FB24
+P 4100 3050
+F 0 "C48" H 3985 3096 50  0000 R CNN
+F 1 "150p" H 3985 3005 50  0000 R CNN
+F 2 "" H 4138 2900 50  0001 C CNN
+F 3 "~" H 4100 3050 50  0001 C CNN
+	1    4100 3050
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	3750 2700 3750 2900
+Connection ~ 3750 2700
+Wire Wire Line
+	3750 2700 4100 2700
+Wire Wire Line
+	3750 3200 3750 3350
+Connection ~ 3750 3350
+Wire Wire Line
+	3750 3350 4100 3350
+Wire Wire Line
+	4100 2700 4100 2900
+Connection ~ 4100 2700
+Wire Wire Line
+	4100 2700 4600 2700
+Wire Wire Line
+	4100 3200 4100 3350
+Connection ~ 4100 3350
+Wire Wire Line
+	4100 3350 4600 3350
+$Comp
+L power:GND #PWR042
+U 1 1 63C2FB3A
+P 3350 3500
+F 0 "#PWR042" H 3350 3250 50  0001 C CNN
+F 1 "GND" H 3355 3327 50  0001 C CNN
+F 2 "" H 3350 3500 50  0001 C CNN
+F 3 "" H 3350 3500 50  0001 C CNN
+	1    3350 3500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3350 3500 3350 3350
+Connection ~ 3350 3350
+Wire Wire Line
+	3350 3350 3750 3350
+Wire Wire Line
+	2550 3350 2950 3350
+Wire Wire Line
+	2550 2700 2950 2700
+Wire Wire Line
+	2950 2700 2950 2900
+Connection ~ 2950 2700
+Wire Wire Line
+	2950 2700 3200 2700
+Wire Wire Line
+	2950 3200 2950 3350
+Connection ~ 2950 3350
+Wire Wire Line
+	2950 3350 3350 3350
+Text Notes 1850 2550 0    50   ~ 0
+6:31T
+Text Notes 4600 2550 0    50   ~ 0
+31:6T
+$Comp
+L Device:CTRIM C53
+U 1 1 63C37927
+P 3350 4050
+F 0 "C53" V 3602 4050 50  0000 C CNN
+F 1 "10p" V 3511 4050 50  0000 C CNN
+F 2 "" H 3350 4050 50  0001 C CNN
+F 3 "~" H 3350 4050 50  0001 C CNN
+	1    3350 4050
+	0    1    -1   0   
+$EndComp
+Text GLabel 1650 4050 0    50   Input ~ 0
+BPF_30_IN
+Text GLabel 4950 4050 2    50   Output ~ 0
+BPF_30_OUT
+$Comp
+L Device:L_Core_Ferrite_Coupled_1423 L22
+U 1 1 63C37933
+P 1950 4400
+F 0 "L22" V 1904 4544 50  0000 L CNN
+F 1 "T37-6" V 1995 4544 50  0000 L CNN
+F 2 "" H 1950 4400 50  0001 C CNN
+F 3 "~" H 1950 4400 50  0001 C CNN
+	1    1950 4400
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:C C55
+U 1 1 63C3793D
+P 2550 4400
+F 0 "C55" H 2665 4446 50  0000 L CNN
+F 1 "100p" H 2665 4355 50  0000 L CNN
+F 2 "" H 2588 4250 50  0001 C CNN
+F 3 "~" H 2550 4400 50  0001 C CNN
+	1    2550 4400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CTRIM C56
+U 1 1 63C37947
+P 2950 4400
+F 0 "C56" H 3065 4446 50  0000 L CNN
+F 1 "30p" H 3065 4355 50  0000 L CNN
+F 2 "" H 2950 4400 50  0001 C CNN
+F 3 "~" H 2950 4400 50  0001 C CNN
+	1    2950 4400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:L_Core_Ferrite_Coupled_1423 L23
+U 1 1 63C37951
+P 4700 4400
+F 0 "L23" V 4654 4212 50  0000 R CNN
+F 1 "T37-6" V 4745 4212 50  0000 R CNN
+F 2 "" H 4700 4400 50  0001 C CNN
+F 3 "~" H 4700 4400 50  0001 C CNN
+	1    4700 4400
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	4800 4200 4800 4050
+Wire Wire Line
+	4800 4050 4950 4050
+Wire Wire Line
+	1850 4200 1850 4050
+Wire Wire Line
+	1850 4050 1650 4050
+Wire Wire Line
+	2050 4600 2050 4700
+Wire Wire Line
+	2050 4700 2550 4700
+Wire Wire Line
+	4600 4700 4600 4600
+Wire Wire Line
+	4600 4700 4800 4700
+Wire Wire Line
+	4800 4700 4800 4600
+Connection ~ 4600 4700
+Wire Wire Line
+	2050 4700 1850 4700
+Wire Wire Line
+	1850 4700 1850 4600
+Connection ~ 2050 4700
+Wire Wire Line
+	2050 4200 2050 4050
+Wire Wire Line
+	2050 4050 2550 4050
+Wire Wire Line
+	3500 4050 3750 4050
+Wire Wire Line
+	4600 4050 4600 4200
+Wire Wire Line
+	2550 4050 2550 4250
+Connection ~ 2550 4050
+Wire Wire Line
+	2550 4550 2550 4700
+Connection ~ 2550 4700
+$Comp
+L Device:CTRIM C57
+U 1 1 63C37970
+P 3750 4400
+F 0 "C57" H 3636 4446 50  0000 R CNN
+F 1 "30p" H 3636 4355 50  0000 R CNN
+F 2 "" H 3750 4400 50  0001 C CNN
+F 3 "~" H 3750 4400 50  0001 C CNN
+	1    3750 4400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C58
+U 1 1 63C3797A
+P 4100 4400
+F 0 "C58" H 3985 4446 50  0000 R CNN
+F 1 "100p" H 3985 4355 50  0000 R CNN
+F 2 "" H 4138 4250 50  0001 C CNN
+F 3 "~" H 4100 4400 50  0001 C CNN
+	1    4100 4400
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	3750 4050 3750 4250
+Connection ~ 3750 4050
+Wire Wire Line
+	3750 4050 4100 4050
+Wire Wire Line
+	3750 4550 3750 4700
+Connection ~ 3750 4700
+Wire Wire Line
+	3750 4700 4100 4700
+Wire Wire Line
+	4100 4050 4100 4250
+Connection ~ 4100 4050
+Wire Wire Line
+	4100 4050 4600 4050
+Wire Wire Line
+	4100 4550 4100 4700
+Connection ~ 4100 4700
+Wire Wire Line
+	4100 4700 4600 4700
+$Comp
+L power:GND #PWR044
+U 1 1 63C37990
+P 3350 4850
+F 0 "#PWR044" H 3350 4600 50  0001 C CNN
+F 1 "GND" H 3355 4677 50  0001 C CNN
+F 2 "" H 3350 4850 50  0001 C CNN
+F 3 "" H 3350 4850 50  0001 C CNN
+	1    3350 4850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3350 4850 3350 4700
+Connection ~ 3350 4700
+Wire Wire Line
+	3350 4700 3750 4700
+Wire Wire Line
+	2550 4700 2950 4700
+Wire Wire Line
+	2550 4050 2950 4050
+Wire Wire Line
+	2950 4050 2950 4250
+Connection ~ 2950 4050
+Wire Wire Line
+	2950 4050 3200 4050
+Wire Wire Line
+	2950 4550 2950 4700
+Connection ~ 2950 4700
+Wire Wire Line
+	2950 4700 3350 4700
+Text Notes 1850 3900 0    50   ~ 0
+5:25T
+Text Notes 4600 3900 0    50   ~ 0
+25:5T
+$Comp
+L Device:CTRIM C63
+U 1 1 63C379A7
+P 3350 5400
+F 0 "C63" V 3602 5400 50  0000 C CNN
+F 1 "10p" V 3511 5400 50  0000 C CNN
+F 2 "" H 3350 5400 50  0001 C CNN
+F 3 "~" H 3350 5400 50  0001 C CNN
+	1    3350 5400
+	0    1    -1   0   
+$EndComp
+Text GLabel 1650 5400 0    50   Input ~ 0
+BPF_20_IN
+Text GLabel 4950 5400 2    50   Output ~ 0
+BPF_20_OUT
+$Comp
+L Device:L_Core_Ferrite_Coupled_1423 L26
+U 1 1 63C379B3
+P 1950 5750
+F 0 "L26" V 1904 5894 50  0000 L CNN
+F 1 "T37-6" V 1995 5894 50  0000 L CNN
+F 2 "" H 1950 5750 50  0001 C CNN
+F 3 "~" H 1950 5750 50  0001 C CNN
+	1    1950 5750
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:C C65
+U 1 1 63C379BD
+P 2550 5750
+F 0 "C65" H 2665 5796 50  0000 L CNN
+F 1 "68p" H 2665 5705 50  0000 L CNN
+F 2 "" H 2588 5600 50  0001 C CNN
+F 3 "~" H 2550 5750 50  0001 C CNN
+	1    2550 5750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CTRIM C66
+U 1 1 63C379C7
+P 2950 5750
+F 0 "C66" H 3065 5796 50  0000 L CNN
+F 1 "30p" H 3065 5705 50  0000 L CNN
+F 2 "" H 2950 5750 50  0001 C CNN
+F 3 "~" H 2950 5750 50  0001 C CNN
+	1    2950 5750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:L_Core_Ferrite_Coupled_1423 L27
+U 1 1 63C379D1
+P 4700 5750
+F 0 "L27" V 4654 5562 50  0000 R CNN
+F 1 "T37-6" V 4745 5562 50  0000 R CNN
+F 2 "" H 4700 5750 50  0001 C CNN
+F 3 "~" H 4700 5750 50  0001 C CNN
+	1    4700 5750
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	4800 5550 4800 5400
+Wire Wire Line
+	4800 5400 4950 5400
+Wire Wire Line
+	1850 5550 1850 5400
+Wire Wire Line
+	1850 5400 1650 5400
+Wire Wire Line
+	2050 5950 2050 6050
+Wire Wire Line
+	2050 6050 2550 6050
+Wire Wire Line
+	4600 6050 4600 5950
+Wire Wire Line
+	4600 6050 4800 6050
+Wire Wire Line
+	4800 6050 4800 5950
+Connection ~ 4600 6050
+Wire Wire Line
+	2050 6050 1850 6050
+Wire Wire Line
+	1850 6050 1850 5950
+Connection ~ 2050 6050
+Wire Wire Line
+	2050 5550 2050 5400
+Wire Wire Line
+	2050 5400 2550 5400
+Wire Wire Line
+	3500 5400 3750 5400
+Wire Wire Line
+	4600 5400 4600 5550
+Wire Wire Line
+	2550 5400 2550 5600
+Connection ~ 2550 5400
+Wire Wire Line
+	2550 5900 2550 6050
+Connection ~ 2550 6050
+$Comp
+L Device:CTRIM C67
+U 1 1 63C379F0
+P 3750 5750
+F 0 "C67" H 3636 5796 50  0000 R CNN
+F 1 "30p" H 3636 5705 50  0000 R CNN
+F 2 "" H 3750 5750 50  0001 C CNN
+F 3 "~" H 3750 5750 50  0001 C CNN
+	1    3750 5750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C68
+U 1 1 63C379FA
+P 4100 5750
+F 0 "C68" H 3985 5796 50  0000 R CNN
+F 1 "68p" H 3985 5705 50  0000 R CNN
+F 2 "" H 4138 5600 50  0001 C CNN
+F 3 "~" H 4100 5750 50  0001 C CNN
+	1    4100 5750
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	3750 5400 3750 5600
+Connection ~ 3750 5400
+Wire Wire Line
+	3750 5400 4100 5400
+Wire Wire Line
+	3750 5900 3750 6050
+Connection ~ 3750 6050
+Wire Wire Line
+	3750 6050 4100 6050
+Wire Wire Line
+	4100 5400 4100 5600
+Connection ~ 4100 5400
+Wire Wire Line
+	4100 5400 4600 5400
+Wire Wire Line
+	4100 5900 4100 6050
+Connection ~ 4100 6050
+Wire Wire Line
+	4100 6050 4600 6050
+$Comp
+L power:GND #PWR046
+U 1 1 63C37A10
+P 3350 6200
+F 0 "#PWR046" H 3350 5950 50  0001 C CNN
+F 1 "GND" H 3355 6027 50  0001 C CNN
+F 2 "" H 3350 6200 50  0001 C CNN
+F 3 "" H 3350 6200 50  0001 C CNN
+	1    3350 6200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3350 6200 3350 6050
+Connection ~ 3350 6050
+Wire Wire Line
+	3350 6050 3750 6050
+Wire Wire Line
+	2550 6050 2950 6050
+Wire Wire Line
+	2550 5400 2950 5400
+Wire Wire Line
+	2950 5400 2950 5600
+Connection ~ 2950 5400
+Wire Wire Line
+	2950 5400 3200 5400
+Wire Wire Line
+	2950 5900 2950 6050
+Connection ~ 2950 6050
+Wire Wire Line
+	2950 6050 3350 6050
+Text Notes 1850 5250 0    50   ~ 0
+4:21T
+Text Notes 4600 5250 0    50   ~ 0
+21:4T
+$Comp
+L Device:CTRIM C34
+U 1 1 63C69745
+P 8050 1350
+F 0 "C34" V 8302 1350 50  0000 C CNN
+F 1 "10p" V 8211 1350 50  0000 C CNN
+F 2 "" H 8050 1350 50  0001 C CNN
+F 3 "~" H 8050 1350 50  0001 C CNN
+	1    8050 1350
+	0    1    -1   0   
+$EndComp
+Text GLabel 6350 1350 0    50   Input ~ 0
+BPF_17_IN
+Text GLabel 9650 1350 2    50   Output ~ 0
+BPF_17_OUT
+$Comp
+L Device:L_Core_Ferrite_Coupled_1423 L16
+U 1 1 63C69751
+P 6650 1700
+F 0 "L16" V 6604 1844 50  0000 L CNN
+F 1 "T37-6" V 6695 1844 50  0000 L CNN
+F 2 "" H 6650 1700 50  0001 C CNN
+F 3 "~" H 6650 1700 50  0001 C CNN
+	1    6650 1700
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:C C39
+U 1 1 63C6975B
+P 7250 1700
+F 0 "C39" H 7365 1746 50  0000 L CNN
+F 1 "47p" H 7365 1655 50  0000 L CNN
+F 2 "" H 7288 1550 50  0001 C CNN
+F 3 "~" H 7250 1700 50  0001 C CNN
+	1    7250 1700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CTRIM C40
+U 1 1 63C69765
+P 7650 1700
+F 0 "C40" H 7765 1746 50  0000 L CNN
+F 1 "30p" H 7765 1655 50  0000 L CNN
+F 2 "" H 7650 1700 50  0001 C CNN
+F 3 "~" H 7650 1700 50  0001 C CNN
+	1    7650 1700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:L_Core_Ferrite_Coupled_1423 L17
+U 1 1 63C6976F
+P 9400 1700
+F 0 "L17" V 9354 1512 50  0000 R CNN
+F 1 "T37-6" V 9445 1512 50  0000 R CNN
+F 2 "" H 9400 1700 50  0001 C CNN
+F 3 "~" H 9400 1700 50  0001 C CNN
+	1    9400 1700
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	9500 1500 9500 1350
+Wire Wire Line
+	9500 1350 9650 1350
+Wire Wire Line
+	6550 1500 6550 1350
+Wire Wire Line
+	6550 1350 6350 1350
+Wire Wire Line
+	6750 1900 6750 2000
+Wire Wire Line
+	6750 2000 7250 2000
+Wire Wire Line
+	9300 2000 9300 1900
+Wire Wire Line
+	9300 2000 9500 2000
+Wire Wire Line
+	9500 2000 9500 1900
+Connection ~ 9300 2000
+Wire Wire Line
+	6750 2000 6550 2000
+Wire Wire Line
+	6550 2000 6550 1900
+Connection ~ 6750 2000
+Wire Wire Line
+	6750 1500 6750 1350
+Wire Wire Line
+	6750 1350 7250 1350
+Wire Wire Line
+	8200 1350 8450 1350
+Wire Wire Line
+	9300 1350 9300 1500
+Wire Wire Line
+	7250 1350 7250 1550
+Connection ~ 7250 1350
+Wire Wire Line
+	7250 1850 7250 2000
+Connection ~ 7250 2000
+$Comp
+L Device:CTRIM C41
+U 1 1 63C6978E
+P 8450 1700
+F 0 "C41" H 8336 1746 50  0000 R CNN
+F 1 "30p" H 8336 1655 50  0000 R CNN
+F 2 "" H 8450 1700 50  0001 C CNN
+F 3 "~" H 8450 1700 50  0001 C CNN
+	1    8450 1700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C42
+U 1 1 63C69798
+P 8800 1700
+F 0 "C42" H 8685 1746 50  0000 R CNN
+F 1 "47p" H 8685 1655 50  0000 R CNN
+F 2 "" H 8838 1550 50  0001 C CNN
+F 3 "~" H 8800 1700 50  0001 C CNN
+	1    8800 1700
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	8450 1350 8450 1550
+Connection ~ 8450 1350
+Wire Wire Line
+	8450 1350 8800 1350
+Wire Wire Line
+	8450 1850 8450 2000
+Connection ~ 8450 2000
+Wire Wire Line
+	8450 2000 8800 2000
+Wire Wire Line
+	8800 1350 8800 1550
+Connection ~ 8800 1350
+Wire Wire Line
+	8800 1350 9300 1350
+Wire Wire Line
+	8800 1850 8800 2000
+Connection ~ 8800 2000
+Wire Wire Line
+	8800 2000 9300 2000
+$Comp
+L power:GND #PWR041
+U 1 1 63C697AE
+P 8050 2150
+F 0 "#PWR041" H 8050 1900 50  0001 C CNN
+F 1 "GND" H 8055 1977 50  0001 C CNN
+F 2 "" H 8050 2150 50  0001 C CNN
+F 3 "" H 8050 2150 50  0001 C CNN
+	1    8050 2150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8050 2150 8050 2000
+Connection ~ 8050 2000
+Wire Wire Line
+	8050 2000 8450 2000
+Wire Wire Line
+	7250 2000 7650 2000
+Wire Wire Line
+	7250 1350 7650 1350
+Wire Wire Line
+	7650 1350 7650 1550
+Connection ~ 7650 1350
+Wire Wire Line
+	7650 1350 7900 1350
+Wire Wire Line
+	7650 1850 7650 2000
+Connection ~ 7650 2000
+Wire Wire Line
+	7650 2000 8050 2000
+Text Notes 6550 1200 0    50   ~ 0
+3:19T
+Text Notes 9300 1200 0    50   ~ 0
+19:3T
+$Comp
+L Device:CTRIM C44
+U 1 1 63C697C5
+P 8050 2700
+F 0 "C44" V 8302 2700 50  0000 C CNN
+F 1 "5p" V 8211 2700 50  0000 C CNN
+F 2 "" H 8050 2700 50  0001 C CNN
+F 3 "~" H 8050 2700 50  0001 C CNN
+	1    8050 2700
+	0    1    -1   0   
+$EndComp
+Text GLabel 6350 2700 0    50   Input ~ 0
+BPF_15_IN
+Text GLabel 9650 2700 2    50   Output ~ 0
+BPF_15_OUT
+$Comp
+L Device:L_Core_Ferrite_Coupled_1423 L20
+U 1 1 63C697D1
+P 6650 3050
+F 0 "L20" V 6604 3194 50  0000 L CNN
+F 1 "T37-6" V 6695 3194 50  0000 L CNN
+F 2 "" H 6650 3050 50  0001 C CNN
+F 3 "~" H 6650 3050 50  0001 C CNN
+	1    6650 3050
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:C C49
+U 1 1 63C697DB
+P 7250 3050
+F 0 "C49" H 7365 3096 50  0000 L CNN
+F 1 "33p" H 7365 3005 50  0000 L CNN
+F 2 "" H 7288 2900 50  0001 C CNN
+F 3 "~" H 7250 3050 50  0001 C CNN
+	1    7250 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CTRIM C50
+U 1 1 63C697E5
+P 7650 3050
+F 0 "C50" H 7765 3096 50  0000 L CNN
+F 1 "30p" H 7765 3005 50  0000 L CNN
+F 2 "" H 7650 3050 50  0001 C CNN
+F 3 "~" H 7650 3050 50  0001 C CNN
+	1    7650 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:L_Core_Ferrite_Coupled_1423 L21
+U 1 1 63C697EF
+P 9400 3050
+F 0 "L21" V 9354 2862 50  0000 R CNN
+F 1 "T37-6" V 9445 2862 50  0000 R CNN
+F 2 "" H 9400 3050 50  0001 C CNN
+F 3 "~" H 9400 3050 50  0001 C CNN
+	1    9400 3050
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	9500 2850 9500 2700
+Wire Wire Line
+	9500 2700 9650 2700
+Wire Wire Line
+	6550 2850 6550 2700
+Wire Wire Line
+	6550 2700 6350 2700
+Wire Wire Line
+	6750 3250 6750 3350
+Wire Wire Line
+	6750 3350 7250 3350
+Wire Wire Line
+	9300 3350 9300 3250
+Wire Wire Line
+	9300 3350 9500 3350
+Wire Wire Line
+	9500 3350 9500 3250
+Connection ~ 9300 3350
+Wire Wire Line
+	6750 3350 6550 3350
+Wire Wire Line
+	6550 3350 6550 3250
+Connection ~ 6750 3350
+Wire Wire Line
+	6750 2850 6750 2700
+Wire Wire Line
+	6750 2700 7250 2700
+Wire Wire Line
+	8200 2700 8450 2700
+Wire Wire Line
+	9300 2700 9300 2850
+Wire Wire Line
+	7250 2700 7250 2900
+Connection ~ 7250 2700
+Wire Wire Line
+	7250 3200 7250 3350
+Connection ~ 7250 3350
+$Comp
+L Device:CTRIM C51
+U 1 1 63C6980E
+P 8450 3050
+F 0 "C51" H 8336 3096 50  0000 R CNN
+F 1 "30p" H 8336 3005 50  0000 R CNN
+F 2 "" H 8450 3050 50  0001 C CNN
+F 3 "~" H 8450 3050 50  0001 C CNN
+	1    8450 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C52
+U 1 1 63C69818
+P 8800 3050
+F 0 "C52" H 8685 3096 50  0000 R CNN
+F 1 "33p" H 8685 3005 50  0000 R CNN
+F 2 "" H 8838 2900 50  0001 C CNN
+F 3 "~" H 8800 3050 50  0001 C CNN
+	1    8800 3050
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	8450 2700 8450 2900
+Connection ~ 8450 2700
+Wire Wire Line
+	8450 2700 8800 2700
+Wire Wire Line
+	8450 3200 8450 3350
+Connection ~ 8450 3350
+Wire Wire Line
+	8450 3350 8800 3350
+Wire Wire Line
+	8800 2700 8800 2900
+Connection ~ 8800 2700
+Wire Wire Line
+	8800 2700 9300 2700
+Wire Wire Line
+	8800 3200 8800 3350
+Connection ~ 8800 3350
+Wire Wire Line
+	8800 3350 9300 3350
+$Comp
+L power:GND #PWR043
+U 1 1 63C6982E
+P 8050 3500
+F 0 "#PWR043" H 8050 3250 50  0001 C CNN
+F 1 "GND" H 8055 3327 50  0001 C CNN
+F 2 "" H 8050 3500 50  0001 C CNN
+F 3 "" H 8050 3500 50  0001 C CNN
+	1    8050 3500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8050 3500 8050 3350
+Connection ~ 8050 3350
+Wire Wire Line
+	8050 3350 8450 3350
+Wire Wire Line
+	7250 3350 7650 3350
+Wire Wire Line
+	7250 2700 7650 2700
+Wire Wire Line
+	7650 2700 7650 2900
+Connection ~ 7650 2700
+Wire Wire Line
+	7650 2700 7900 2700
+Wire Wire Line
+	7650 3200 7650 3350
+Connection ~ 7650 3350
+Wire Wire Line
+	7650 3350 8050 3350
+Text Notes 6550 2550 0    50   ~ 0
+3:18T
+Text Notes 9300 2550 0    50   ~ 0
+18:3T
+$Comp
+L Device:CTRIM C54
+U 1 1 63C69845
+P 8050 4050
+F 0 "C54" V 8302 4050 50  0000 C CNN
+F 1 "5p" V 8211 4050 50  0000 C CNN
+F 2 "" H 8050 4050 50  0001 C CNN
+F 3 "~" H 8050 4050 50  0001 C CNN
+	1    8050 4050
+	0    1    -1   0   
+$EndComp
+Text GLabel 6350 4050 0    50   Input ~ 0
+BPF_12_IN
+Text GLabel 9650 4050 2    50   Output ~ 0
+BPF_12_OUT
+$Comp
+L Device:L_Core_Ferrite_Coupled_1423 L24
+U 1 1 63C69851
+P 6650 4400
+F 0 "L24" V 6604 4544 50  0000 L CNN
+F 1 "T37-6" V 6695 4544 50  0000 L CNN
+F 2 "" H 6650 4400 50  0001 C CNN
+F 3 "~" H 6650 4400 50  0001 C CNN
+	1    6650 4400
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:C C59
+U 1 1 63C6985B
+P 7250 4400
+F 0 "C59" H 7365 4446 50  0000 L CNN
+F 1 "22p" H 7365 4355 50  0000 L CNN
+F 2 "" H 7288 4250 50  0001 C CNN
+F 3 "~" H 7250 4400 50  0001 C CNN
+	1    7250 4400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CTRIM C60
+U 1 1 63C69865
+P 7650 4400
+F 0 "C60" H 7765 4446 50  0000 L CNN
+F 1 "30p" H 7765 4355 50  0000 L CNN
+F 2 "" H 7650 4400 50  0001 C CNN
+F 3 "~" H 7650 4400 50  0001 C CNN
+	1    7650 4400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:L_Core_Ferrite_Coupled_1423 L25
+U 1 1 63C6986F
+P 9400 4400
+F 0 "L25" V 9354 4212 50  0000 R CNN
+F 1 "T37-6" V 9445 4212 50  0000 R CNN
+F 2 "" H 9400 4400 50  0001 C CNN
+F 3 "~" H 9400 4400 50  0001 C CNN
+	1    9400 4400
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	9500 4200 9500 4050
+Wire Wire Line
+	9500 4050 9650 4050
+Wire Wire Line
+	6550 4200 6550 4050
+Wire Wire Line
+	6550 4050 6350 4050
+Wire Wire Line
+	6750 4600 6750 4700
+Wire Wire Line
+	6750 4700 7250 4700
+Wire Wire Line
+	9300 4700 9300 4600
+Wire Wire Line
+	9300 4700 9500 4700
+Wire Wire Line
+	9500 4700 9500 4600
+Connection ~ 9300 4700
+Wire Wire Line
+	6750 4700 6550 4700
+Wire Wire Line
+	6550 4700 6550 4600
+Connection ~ 6750 4700
+Wire Wire Line
+	6750 4200 6750 4050
+Wire Wire Line
+	6750 4050 7250 4050
+Wire Wire Line
+	8200 4050 8450 4050
+Wire Wire Line
+	9300 4050 9300 4200
+Wire Wire Line
+	7250 4050 7250 4250
+Connection ~ 7250 4050
+Wire Wire Line
+	7250 4550 7250 4700
+Connection ~ 7250 4700
+$Comp
+L Device:CTRIM C61
+U 1 1 63C6988E
+P 8450 4400
+F 0 "C61" H 8336 4446 50  0000 R CNN
+F 1 "30p" H 8336 4355 50  0000 R CNN
+F 2 "" H 8450 4400 50  0001 C CNN
+F 3 "~" H 8450 4400 50  0001 C CNN
+	1    8450 4400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C62
+U 1 1 63C69898
+P 8800 4400
+F 0 "C62" H 8685 4446 50  0000 R CNN
+F 1 "22p" H 8685 4355 50  0000 R CNN
+F 2 "" H 8838 4250 50  0001 C CNN
+F 3 "~" H 8800 4400 50  0001 C CNN
+	1    8800 4400
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	8450 4050 8450 4250
+Connection ~ 8450 4050
+Wire Wire Line
+	8450 4050 8800 4050
+Wire Wire Line
+	8450 4550 8450 4700
+Connection ~ 8450 4700
+Wire Wire Line
+	8450 4700 8800 4700
+Wire Wire Line
+	8800 4050 8800 4250
+Connection ~ 8800 4050
+Wire Wire Line
+	8800 4050 9300 4050
+Wire Wire Line
+	8800 4550 8800 4700
+Connection ~ 8800 4700
+Wire Wire Line
+	8800 4700 9300 4700
+$Comp
+L power:GND #PWR045
+U 1 1 63C698AE
+P 8050 4850
+F 0 "#PWR045" H 8050 4600 50  0001 C CNN
+F 1 "GND" H 8055 4677 50  0001 C CNN
+F 2 "" H 8050 4850 50  0001 C CNN
+F 3 "" H 8050 4850 50  0001 C CNN
+	1    8050 4850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8050 4850 8050 4700
+Connection ~ 8050 4700
+Wire Wire Line
+	8050 4700 8450 4700
+Wire Wire Line
+	7250 4700 7650 4700
+Wire Wire Line
+	7250 4050 7650 4050
+Wire Wire Line
+	7650 4050 7650 4250
+Connection ~ 7650 4050
+Wire Wire Line
+	7650 4050 7900 4050
+Wire Wire Line
+	7650 4550 7650 4700
+Connection ~ 7650 4700
+Wire Wire Line
+	7650 4700 8050 4700
+Text Notes 6550 3900 0    50   ~ 0
+3:17T
+Text Notes 9300 3900 0    50   ~ 0
+17:3T
+$Comp
+L Device:CTRIM C64
+U 1 1 63C698C5
+P 8050 5400
+F 0 "C64" V 8302 5400 50  0000 C CNN
+F 1 "5p" V 8211 5400 50  0000 C CNN
+F 2 "" H 8050 5400 50  0001 C CNN
+F 3 "~" H 8050 5400 50  0001 C CNN
+	1    8050 5400
+	0    1    -1   0   
+$EndComp
+Text GLabel 6350 5400 0    50   Input ~ 0
+BPF_10_IN
+Text GLabel 9650 5400 2    50   Output ~ 0
+BPF_10_OUT
+$Comp
+L Device:L_Core_Ferrite_Coupled_1423 L28
+U 1 1 63C698D1
+P 6650 5750
+F 0 "L28" V 6604 5894 50  0000 L CNN
+F 1 "T37-6" V 6695 5894 50  0000 L CNN
+F 2 "" H 6650 5750 50  0001 C CNN
+F 3 "~" H 6650 5750 50  0001 C CNN
+	1    6650 5750
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:CTRIM C69
+U 1 1 63C698E5
+P 7650 5750
+F 0 "C69" H 7765 5796 50  0000 L CNN
+F 1 "30p" H 7765 5705 50  0000 L CNN
+F 2 "" H 7650 5750 50  0001 C CNN
+F 3 "~" H 7650 5750 50  0001 C CNN
+	1    7650 5750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:L_Core_Ferrite_Coupled_1423 L29
+U 1 1 63C698EF
+P 9400 5750
+F 0 "L29" V 9354 5562 50  0000 R CNN
+F 1 "T37-6" V 9445 5562 50  0000 R CNN
+F 2 "" H 9400 5750 50  0001 C CNN
+F 3 "~" H 9400 5750 50  0001 C CNN
+	1    9400 5750
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	9500 5550 9500 5400
+Wire Wire Line
+	9500 5400 9650 5400
+Wire Wire Line
+	6550 5550 6550 5400
+Wire Wire Line
+	6550 5400 6350 5400
+Wire Wire Line
+	6750 5950 6750 6050
+Wire Wire Line
+	6750 6050 7250 6050
+Wire Wire Line
+	9300 6050 9300 5950
+Wire Wire Line
+	9300 6050 9500 6050
+Wire Wire Line
+	9500 6050 9500 5950
+Connection ~ 9300 6050
+Wire Wire Line
+	6750 6050 6550 6050
+Wire Wire Line
+	6550 6050 6550 5950
+Connection ~ 6750 6050
+Wire Wire Line
+	6750 5550 6750 5400
+Wire Wire Line
+	6750 5400 7250 5400
+Wire Wire Line
+	8200 5400 8450 5400
+Wire Wire Line
+	9300 5400 9300 5550
+Wire Wire Line
+	7250 5400 7250 5600
+Connection ~ 7250 5400
+Wire Wire Line
+	7250 5900 7250 6050
+Connection ~ 7250 6050
+$Comp
+L Device:C C70
+U 1 1 63C69918
+P 8800 5750
+F 0 "C70" H 8685 5796 50  0000 R CNN
+F 1 "470p" H 8685 5705 50  0000 R CNN
+F 2 "" H 8838 5600 50  0001 C CNN
+F 3 "~" H 8800 5750 50  0001 C CNN
+	1    8800 5750
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	8450 5400 8450 5600
+Connection ~ 8450 5400
+Wire Wire Line
+	8450 5400 8800 5400
+Wire Wire Line
+	8450 5900 8450 6050
+Connection ~ 8450 6050
+Wire Wire Line
+	8450 6050 8800 6050
+Wire Wire Line
+	8800 5400 8800 5600
+Connection ~ 8800 5400
+Wire Wire Line
+	8800 5400 9300 5400
+Wire Wire Line
+	8800 5900 8800 6050
+Connection ~ 8800 6050
+Wire Wire Line
+	8800 6050 9300 6050
+$Comp
+L power:GND #PWR047
+U 1 1 63C6992E
+P 8050 6200
+F 0 "#PWR047" H 8050 5950 50  0001 C CNN
+F 1 "GND" H 8055 6027 50  0001 C CNN
+F 2 "" H 8050 6200 50  0001 C CNN
+F 3 "" H 8050 6200 50  0001 C CNN
+	1    8050 6200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8050 6200 8050 6050
+Connection ~ 8050 6050
+Wire Wire Line
+	8050 6050 8450 6050
+Wire Wire Line
+	7250 6050 7650 6050
+Wire Wire Line
+	7250 5400 7650 5400
+Wire Wire Line
+	7650 5400 7650 5600
+Connection ~ 7650 5400
+Wire Wire Line
+	7650 5400 7900 5400
+Wire Wire Line
+	7650 5900 7650 6050
+Connection ~ 7650 6050
+Wire Wire Line
+	7650 6050 8050 6050
+Text Notes 6550 5250 0    50   ~ 0
+3:16T
+Text Notes 9300 5250 0    50   ~ 0
+16:3T
+NoConn ~ 8450 5600
+NoConn ~ 8450 5900
+NoConn ~ 7250 5900
+NoConn ~ 7250 5600
+$EndSCHEMATC
