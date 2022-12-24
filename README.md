@@ -1,6 +1,6 @@
 # HBR/8B
 
-QRP CW Transceiver. This is an improved version of [HBR/3B](https://github.com/afiskon/hbr-3b)
+QRP CW Transceiver. This is an improved version of [HBR/3B](https://github.com/afiskon/hbr-3b).
 
 * Covers 80, 40, 30, 20, 17, 15, 12 and 10 meters
 * Classical single IF superheterodyne design
