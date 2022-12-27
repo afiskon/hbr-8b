@@ -986,9 +986,6 @@ void init() {
 */
     keyUp();
 
-    // Give the LCD and Si5351 some time to initialize after powering up
-    HAL_Delay(1000);
-
     HAL_TIM_Encoder_Start(&htim1, TIM_CHANNEL_ALL);
     HAL_TIM_Encoder_Start(&htim2, TIM_CHANNEL_ALL);
     HAL_ADC_Start(&hadc1);
