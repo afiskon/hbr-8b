@@ -3,10 +3,10 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 7 13
+Sheet 7 14
 Title "HBR/8B by R2AUK ::: https://eax.me/hbr-8b-transceiver/"
-Date "2022-12-24"
-Rev ""
+Date "2023-01-01"
+Rev "1"
 Comp ""
 Comment1 ""
 Comment2 ""

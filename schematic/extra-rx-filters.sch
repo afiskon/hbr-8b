@@ -1,0 +1,271 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 14 14
+Title "HBR/8B by R2AUK ::: https://eax.me/hbr-8b-transceiver/"
+Date "2023-01-01"
+Rev "1"
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+Text Notes 5600 6650 0    50   ~ 0
+Tune to 28 MHz
+Text Notes 4500 6650 0    50   ~ 0
+Tune to 25 MHz
+Text Notes 4700 4350 0    50   ~ 0
+Some extra notch filters are recommended as well.\n\nFor 80 meters one is not needed becasue the BPF has\na very good suppression of potentially problematic\nfrequencies (21.5 MHz, 28.5 MHz)\n\nFor 20-10 meters the RX LPF will do the trick.
+Wire Wire Line
+	5850 6150 5850 6350
+Wire Wire Line
+	5850 5650 5850 5850
+Wire Wire Line
+	5850 5000 5850 5350
+$Comp
+L power:GND #PWR0206
+U 1 1 63B4A833
+P 5850 6350
+F 0 "#PWR0206" H 5850 6100 50  0001 C CNN
+F 1 "GND" H 5855 6177 50  0001 C CNN
+F 2 "" H 5850 6350 50  0001 C CNN
+F 3 "" H 5850 6350 50  0001 C CNN
+	1    5850 6350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CTRIM C163
+U 1 1 63B4A829
+P 5850 6000
+F 0 "C163" H 5965 6046 50  0000 L CNN
+F 1 "50p" H 5965 5955 50  0000 L CNN
+F 2 "" H 5850 6000 50  0001 C CNN
+F 3 "~" H 5850 6000 50  0001 C CNN
+	1    5850 6000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:L_Core_Ferrite L42
+U 1 1 63B4A81F
+P 5850 5500
+F 0 "L42" H 5938 5546 50  0000 L CNN
+F 1 "16T @ T37-6" H 5938 5455 50  0000 L CNN
+F 2 "" H 5850 5500 50  0001 C CNN
+F 3 "~" H 5850 5500 50  0001 C CNN
+	1    5850 5500
+	1    0    0    -1  
+$EndComp
+Text GLabel 5850 5000 1    50   Input ~ 0
+BPF_30_IN
+Wire Wire Line
+	4750 6150 4750 6350
+Wire Wire Line
+	4750 5650 4750 5850
+Wire Wire Line
+	4750 5000 4750 5350
+$Comp
+L power:GND #PWR0205
+U 1 1 63B48493
+P 4750 6350
+F 0 "#PWR0205" H 4750 6100 50  0001 C CNN
+F 1 "GND" H 4755 6177 50  0001 C CNN
+F 2 "" H 4750 6350 50  0001 C CNN
+F 3 "" H 4750 6350 50  0001 C CNN
+	1    4750 6350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CTRIM C162
+U 1 1 63B47A52
+P 4750 6000
+F 0 "C162" H 4865 6046 50  0000 L CNN
+F 1 "50p" H 4865 5955 50  0000 L CNN
+F 2 "" H 4750 6000 50  0001 C CNN
+F 3 "~" H 4750 6000 50  0001 C CNN
+	1    4750 6000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:L_Core_Ferrite L41
+U 1 1 63B46BF0
+P 4750 5500
+F 0 "L41" H 4838 5546 50  0000 L CNN
+F 1 "16T @ T37-6" H 4838 5455 50  0000 L CNN
+F 2 "" H 4750 5500 50  0001 C CNN
+F 3 "~" H 4750 5500 50  0001 C CNN
+	1    4750 5500
+	1    0    0    -1  
+$EndComp
+Text GLabel 4750 5000 1    50   Input ~ 0
+BPF_40_IN
+Wire Wire Line
+	6500 3150 6500 3300
+Wire Wire Line
+	6500 2750 6900 2750
+Wire Wire Line
+	6500 2750 6500 2850
+Wire Wire Line
+	5850 3150 5850 3300
+Wire Wire Line
+	5850 2750 6000 2750
+Wire Wire Line
+	5850 2750 5850 2850
+Wire Wire Line
+	5200 3150 5200 3300
+Wire Wire Line
+	5200 2750 5350 2750
+Wire Wire Line
+	5200 2750 5200 2850
+Wire Wire Line
+	4500 3150 4500 3300
+Wire Wire Line
+	4500 2750 4700 2750
+Wire Wire Line
+	4500 2750 4500 2850
+Connection ~ 6500 2750
+Wire Wire Line
+	6300 2750 6500 2750
+Connection ~ 5850 2750
+Wire Wire Line
+	5650 2750 5850 2750
+Connection ~ 5200 2750
+Wire Wire Line
+	5000 2750 5200 2750
+Connection ~ 4500 2750
+Wire Wire Line
+	4300 2750 4500 2750
+$Comp
+L power:GND #PWR0204
+U 1 1 63B57C44
+P 6500 3300
+F 0 "#PWR0204" H 6500 3050 50  0001 C CNN
+F 1 "GND" H 6505 3127 50  0001 C CNN
+F 2 "" H 6500 3300 50  0001 C CNN
+F 3 "" H 6500 3300 50  0001 C CNN
+	1    6500 3300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0203
+U 1 1 63B5789F
+P 5850 3300
+F 0 "#PWR0203" H 5850 3050 50  0001 C CNN
+F 1 "GND" H 5855 3127 50  0001 C CNN
+F 2 "" H 5850 3300 50  0001 C CNN
+F 3 "" H 5850 3300 50  0001 C CNN
+	1    5850 3300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0202
+U 1 1 63B573E0
+P 5200 3300
+F 0 "#PWR0202" H 5200 3050 50  0001 C CNN
+F 1 "GND" H 5205 3127 50  0001 C CNN
+F 2 "" H 5200 3300 50  0001 C CNN
+F 3 "" H 5200 3300 50  0001 C CNN
+	1    5200 3300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0201
+U 1 1 63B56DC5
+P 4500 3300
+F 0 "#PWR0201" H 4500 3050 50  0001 C CNN
+F 1 "GND" H 4505 3127 50  0001 C CNN
+F 2 "" H 4500 3300 50  0001 C CNN
+F 3 "" H 4500 3300 50  0001 C CNN
+	1    4500 3300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C161
+U 1 1 63B56555
+P 6500 3000
+F 0 "C161" H 6615 3046 50  0000 L CNN
+F 1 "220p" H 6615 2955 50  0000 L CNN
+F 2 "" H 6538 2850 50  0001 C CNN
+F 3 "~" H 6500 3000 50  0001 C CNN
+	1    6500 3000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C160
+U 1 1 63B55E2D
+P 5850 3000
+F 0 "C160" H 5965 3046 50  0000 L CNN
+F 1 "330p" H 5965 2955 50  0000 L CNN
+F 2 "" H 5888 2850 50  0001 C CNN
+F 3 "~" H 5850 3000 50  0001 C CNN
+	1    5850 3000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C159
+U 1 1 63B559BB
+P 5200 3000
+F 0 "C159" H 5315 3046 50  0000 L CNN
+F 1 "330p" H 5315 2955 50  0000 L CNN
+F 2 "" H 5238 2850 50  0001 C CNN
+F 3 "~" H 5200 3000 50  0001 C CNN
+	1    5200 3000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C158
+U 1 1 63B552D0
+P 4500 3000
+F 0 "C158" H 4615 3046 50  0000 L CNN
+F 1 "220p" H 4615 2955 50  0000 L CNN
+F 2 "" H 4538 2850 50  0001 C CNN
+F 3 "~" H 4500 3000 50  0001 C CNN
+	1    4500 3000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:L_Core_Ferrite L40
+U 1 1 63B549DC
+P 6150 2750
+F 0 "L40" V 6375 2750 50  0000 C CNN
+F 1 "0.3u" V 6284 2750 50  0000 C CNN
+F 2 "" H 6150 2750 50  0001 C CNN
+F 3 "~" H 6150 2750 50  0001 C CNN
+	1    6150 2750
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:L_Core_Ferrite L39
+U 1 1 63B5426F
+P 5500 2750
+F 0 "L39" V 5725 2750 50  0000 C CNN
+F 1 "0.3u" V 5634 2750 50  0000 C CNN
+F 2 "" H 5500 2750 50  0001 C CNN
+F 3 "~" H 5500 2750 50  0001 C CNN
+	1    5500 2750
+	0    -1   -1   0   
+$EndComp
+Text Notes 5150 2400 0    50   ~ 0
+0.3u = 9T @ T37-6
+$Comp
+L Device:L_Core_Ferrite L38
+U 1 1 63B4DA80
+P 4850 2750
+F 0 "L38" V 5075 2750 50  0000 C CNN
+F 1 "0.3u" V 4984 2750 50  0000 C CNN
+F 2 "" H 4850 2750 50  0001 C CNN
+F 3 "~" H 4850 2750 50  0001 C CNN
+	1    4850 2750
+	0    -1   -1   0   
+$EndComp
+Text GLabel 6900 2750 2    50   Output ~ 0
+BPFS_IN
+Text GLabel 4300 2750 0    50   Input ~ 0
+RX_LPF_IN
+Text Notes 4850 1100 0    50   ~ 0
+These filters are not 100% mandatory\nbut they improve IMRR significantly.
+Text Notes 4950 2200 0    50   ~ 0
+31 MHz Chebyshev LPF, 1 dB ripple
+$EndSCHEMATC

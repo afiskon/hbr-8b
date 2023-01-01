@@ -3,10 +3,10 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 13
+Sheet 1 14
 Title "HBR/8B by R2AUK ::: https://eax.me/hbr-8b-transceiver/"
-Date "2022-12-24"
-Rev ""
+Date "2023-01-01"
+Rev "1"
 Comp ""
 Comment1 ""
 Comment2 ""
@@ -459,7 +459,7 @@ F 3 "" H 10900 2350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Text GLabel 8900 1950 0    50   Output ~ 0
-BPFS_IN
+RX_LPF_IN
 Text GLabel 8900 2150 0    50   Input ~ 0
 STOCKTON_BRIDGE_OUT
 Text Notes 10850 1900 0    50   ~ 0
@@ -1151,5 +1151,11 @@ S 1800 3650 900  400
 U 63B92DDC
 F0 "BPF Relays 2" 50
 F1 "bpf-relays-2.sch" 50
+$EndSheet
+$Sheet
+S 1800 2350 900  400 
+U 63B3DD40
+F0 "Extra RX Filters" 50
+F1 "extra-rx-filters.sch" 50
 $EndSheet
 $EndSCHEMATC
