@@ -8,7 +8,7 @@ All HF bands QRP CW transceiver. This is an improved version of [HBR/3B](https:/
 * Simple but effective AGC
 * Supports RIT and XIT
 * 10-30 WPM Elekey-B type keyer + straight key mode
-* Keyer settings are saved in EEPROM
+* Keyer supports record and playback, programmable with paddles
 * ~5W class C power amplifier
 * Has a S-meter and a SWR meter
 * Open-source firmware, schematic and 3D-printable enclosure
