@@ -110,7 +110,9 @@ const int32_t si5351_correction = 5760;
 int32_t Fvfo = 1000000; // dummy value, will be changed below
 
 const uint8_t eeprom_i2c_addr = (0x50 << 1);
+#define EEPROM_PAGE_SIZE 32
 #define KEYER_CONFIG_EEPROM_ADDR        0x0000
+#define KEYER_MESSAGE_EEPROM_ADDR       0x0400
 
 typedef enum {
     CLAR_MODE_DISABLED = 0,
@@ -124,12 +126,6 @@ ClarMode_t clarMode = CLAR_MODE_DISABLED;
 
 int32_t clarOffset = 0;
 
-int32_t sendStart = 0;
-int32_t sendFinish = 0;
-int32_t keyReadTimeout = 0;
-int32_t sendTimeout = 0;
-bool isSending = false;
-
 typedef enum {
     CW_SEND_NONE = 0,
     CW_SEND_DIT = 1,
@@ -139,11 +135,19 @@ typedef enum {
 CwSend_t lastSent = CW_SEND_NONE;
 CwSend_t nextSend = CW_SEND_NONE;
 
+typedef enum {
+    KEYER_SETINGS_PAGE_SPEED = 0,
+    KEYER_SETINGS_PAGE_XMIT = 1,
+    KEYER_SETINGS_PAGE_SAVE = 2,
+    KEYER_SETINGS_PAGE_PLAY = 3,
+} KeyerSettingsPage_t;
+
 typedef struct {
     uint16_t checksum;
     bool straightKey;
     int32_t speedWPM;
     int32_t ditTimeMs;
+    KeyerSettingsPage_t settingsPage;
 } KeyerConfig_t;
 
 KeyerConfig_t keyerConfig = {
@@ -155,10 +159,23 @@ KeyerConfig_t keyerConfig = {
     // where 50 is the length in dits of "PARIS "
     // see https://morsecode.world/international/timing.html
     .ditTimeMs = 63,
+    .settingsPage = KEYER_SETINGS_PAGE_SPEED,
+};
+
+#define MAX_KEYER_MESSAGE_LENGTH 500
+
+typedef struct {
+    uint16_t checksum;
+    uint16_t length;
+    char message[MAX_KEYER_MESSAGE_LENGTH];
+} KeyerMessage_t;
+
+KeyerMessage_t keyerMessage = {
+    .checksum = 0,
+    .length = 0,
 };
 
 bool inTransmitMode = false;
-bool inCWTrainerMode = false;
 
 #define BUTTON_DEBOUNCE_TIME_MS 200
 typedef enum {
@@ -299,6 +316,69 @@ uint32_t jenkinsHash(const uint8_t *data, const size_t len) {
   return hash;
 }
 
+void loadKeyerMessage() {
+    HAL_StatusTypeDef status;
+    uint16_t savedChecksum;
+    KeyerMessage_t savedKeyerMessage;
+
+    for(;;) {
+        status = HAL_I2C_IsDeviceReady(&hi2c1, eeprom_i2c_addr, 3, HAL_MAX_DELAY);
+        if(status == HAL_OK)
+            break;
+    }
+
+    HAL_I2C_Mem_Read(&hi2c1, eeprom_i2c_addr, KEYER_MESSAGE_EEPROM_ADDR, I2C_MEMADD_SIZE_16BIT,
+            (uint8_t*)&savedKeyerMessage, sizeof(savedKeyerMessage), HAL_MAX_DELAY);
+
+    savedChecksum = savedKeyerMessage.checksum;
+    savedKeyerMessage.checksum = 0;
+
+    if((jenkinsHash((const uint8_t*)&savedKeyerMessage, sizeof(savedKeyerMessage)) & 0xFFFF) == savedChecksum) {
+        keyerMessage = savedKeyerMessage;
+    } else {
+        LCD_Goto(0, 0);
+        LCD_SendString("MSG HASH");
+        LCD_Goto(1, 0);
+        LCD_SendString(" ERROR! ");
+        HAL_Delay(2000);
+        LCD_Clear();
+    }
+}
+
+void saveKeyerMessage() {
+    HAL_StatusTypeDef status;
+    uint16_t checksum;
+    size_t bytes_to_write = sizeof(keyerMessage);
+    uint8_t* struct_offset = (uint8_t*)&keyerMessage;
+    uint16_t eeprom_addr = KEYER_MESSAGE_EEPROM_ADDR;
+
+    keyerMessage.checksum = 0;
+    checksum = (jenkinsHash((const uint8_t*)&keyerMessage, sizeof(keyerMessage)) & 0xFFFF);
+    keyerMessage.checksum = checksum;
+
+    // sizeof(keyerMessage) exceeds EEPROM_PAGE_SIZE
+    // so we have to write it in batches
+    while(bytes_to_write > 0) {
+        size_t batch_size = bytes_to_write;
+        if(batch_size > EEPROM_PAGE_SIZE) {
+            batch_size = EEPROM_PAGE_SIZE;
+        }
+
+        for(;;) {
+            status = HAL_I2C_IsDeviceReady(&hi2c1, eeprom_i2c_addr, 3, HAL_MAX_DELAY);
+            if(status == HAL_OK)
+                break;
+        }
+
+        HAL_I2C_Mem_Write(&hi2c1, eeprom_i2c_addr, eeprom_addr, I2C_MEMADD_SIZE_16BIT,
+            struct_offset, batch_size, HAL_MAX_DELAY);
+
+        bytes_to_write -= batch_size;
+        struct_offset += batch_size;
+        eeprom_addr += batch_size;
+    }
+}
+
 void loadKeyerConfig() {
     HAL_StatusTypeDef status;
     uint16_t savedChecksum;
@@ -320,7 +400,7 @@ void loadKeyerConfig() {
         keyerConfig = savedKeyerConfig;
     } else {
         LCD_Goto(0, 0);
-        LCD_SendString("CHECKSUM");
+        LCD_SendString("CFG HASH");
         LCD_Goto(1, 0);
         LCD_SendString(" ERROR! ");
         HAL_Delay(2000);
@@ -349,9 +429,9 @@ void saveKeyerConfig() {
 void changeKeyerSpeed(int32_t delta) {
     keyerConfig.speedWPM += delta;
     if(keyerConfig.speedWPM < 10) {
-        keyerConfig.speedWPM = 9;
+        keyerConfig.speedWPM = 10;
         keyerConfig.straightKey = true;
-        keyerConfig.ditTimeMs = 60*1000/(50*16); // as for 16 WPM
+        keyerConfig.ditTimeMs = 60*1000/(50*(10+1)); // as for 10 WPM
     } else {
         keyerConfig.straightKey = false;
         if(keyerConfig.speedWPM > 30) {
@@ -411,22 +491,6 @@ void changeFrequency(int32_t delta, bool force) {
     }
 
     prevFvfo = Fvfo;
-}
-
-void displayKeyerSettings() {
-    char buff[16];
-    if(keyerConfig.straightKey) {
-        LCD_Goto(0, 0);
-        LCD_SendString("SPEED --");
-        LCD_Goto(1, 0);
-        LCD_SendString("STRAIGHT");
-    } else {
-        snprintf(buff, sizeof(buff), "SPEED %02ld", keyerConfig.speedWPM);
-        LCD_Goto(0, 0);
-        LCD_SendString(buff);
-        LCD_Goto(1, 0);
-        LCD_SendString("IAMBIC  ");
-    }
 }
 
 void displayFrequency() {
@@ -559,22 +623,6 @@ void changeBand(int32_t delta) {
     displayFrequency();
 }
 
-void enterCWTrainerMode() {
-    if(inCWTrainerMode) {
-        return;
-    }
-
-    inCWTrainerMode = true;
-}
-
-void leaveCWTrainerMode() {
-    if(!inCWTrainerMode) {
-        return;
-    }
-
-    inCWTrainerMode = false;
-}
-
 void ensureTransmitMode() {
     if(inTransmitMode) {
         return;
@@ -686,15 +734,88 @@ void processStraightKeyerLogic(bool pressed) {
 }
 
 void initIambicKeyer() {
-    // iambic keyer doesn't need to init anything
+    // iambic keyer has nothing to init
+}
+
+static size_t iambicKeyerLogOffset = 0;
+static char iambicKeyerLog[MAX_KEYER_MESSAGE_LENGTH] = {0};
+
+void iambicKeyerLogReset() {
+    iambicKeyerLogOffset = 0;
+}
+
+size_t iambicKeyerLogSize() {
+    return iambicKeyerLogOffset;
+}
+
+size_t iambicKeyerLogSpaceLeft() {
+    return MAX_KEYER_MESSAGE_LENGTH - iambicKeyerLogOffset;
+}
+
+// Iambic keyer logs up to MAX_KEYER_MESSAGE_LENGTH symbols.
+// '.' is a dit
+// '-' is a dah
+// ' ' is a pause between letters
+// '/' is a pause between words
+// Multiple pauses between letters are logged as one pause.
+// Multiple pauses between words are also logged as one pause.
+// Pauses in the beginning of the message are not logged.
+void iambicKeyerLogEmit(char c) {
+    if(iambicKeyerLogSpaceLeft() == 0) {
+        // truncate the message if there is not space left in the buffer
+        return;
+    }
+
+    if(((c == ' ') || (c == '/')) && (iambicKeyerLogOffset == 0)) {
+        // don't log the pauses in the beginning of the message
+        return;
+    }
+
+    if((c == ' ') && iambicKeyerLog[iambicKeyerLogOffset-1] == ' ') {
+        // multiple pauses between letters are logged as one pause
+        return;
+    }
+
+    if((c == '/') && iambicKeyerLog[iambicKeyerLogOffset-1] == '/') {
+        // multiple pauses between words are logged as one pause.
+        return;
+    }
+
+    if((c == '/') && iambicKeyerLog[iambicKeyerLogOffset-1] == ' ') {
+        // previously logged pause between letters became a pause between words
+        iambicKeyerLog[iambicKeyerLogOffset-1] = '/';
+        return;
+    }
+
+    if((c == ' ') && iambicKeyerLog[iambicKeyerLogOffset-1] == '/') {
+        // to my knowledge this should never happen...
+        return;
+    }
+
+    // log the symbol
+    iambicKeyerLog[iambicKeyerLogOffset] = c;
+    iambicKeyerLogOffset++;
 }
 
 void processIambicKeyerLogic(bool ditPressed, bool dahPressed) {
+    static int32_t sendFinish = 0;
+    static int32_t keyReadTimeout = 0;
+    static int32_t sendTimeout = 0;
+    static bool isSending = false;
+
     int32_t now = HAL_GetTick();
 
     if(isSending && (now >= sendFinish)) {
         keyUp();
         isSending = false;
+    } else if(!isSending && (now - sendFinish) > keyerConfig.ditTimeMs*5) {
+        // multiple pauses between words will be logged as one pause
+        // pauses in the beginning of the message will be ignored
+        iambicKeyerLogEmit('/');
+    } else if(!isSending && (now - sendFinish) > keyerConfig.ditTimeMs*2) {
+        // multiple pauses between letters will be logged as one pause
+        // pauses in the beginning of the message will be ignored
+        iambicKeyerLogEmit(' ');
     }
 
     if(nextSend == CW_SEND_NONE) {
@@ -713,16 +834,17 @@ void processIambicKeyerLogic(bool ditPressed, bool dahPressed) {
 
     if((now > sendTimeout) && (nextSend != CW_SEND_NONE)) {
         if(nextSend == CW_SEND_DIT) {
+            iambicKeyerLogEmit('.');
             sendFinish = now + keyerConfig.ditTimeMs;
             keyReadTimeout = now + keyerConfig.ditTimeMs*2;
         } else if(nextSend == CW_SEND_DAH) {
+            iambicKeyerLogEmit('-');
             sendFinish = now + keyerConfig.ditTimeMs*3;
             keyReadTimeout = now + keyerConfig.ditTimeMs*3;
         }
 
         lastSent = nextSend;
         nextSend = CW_SEND_NONE;
-        sendStart = now;
         sendTimeout = sendFinish + keyerConfig.ditTimeMs;
         isSending = true;
         keyDown();
@@ -753,59 +875,371 @@ int32_t getDelta(TIM_HandleTypeDef* htim, int32_t *prevCounter, int32_t mult, in
     return 0;
 }
 
-void loopKeyer() {
-    uint32_t CWTrainerModeEnterTime = 0;
-    int32_t prevCounter = 0;
-    displayKeyerSettings();
-    // read the initial counter value
-    (void)getDelta(&htim2, &prevCounter, MULTI_DELTA_MULT, MULTI_DELTA_DIV);
+void displayKeyerSpeedSettings() {
+    char buff[16];
+    if(keyerConfig.straightKey) {
+        LCD_Goto(0, 0);
+        LCD_SendString("SPEED --");
+        LCD_Goto(1, 0);
+        LCD_SendString("STRAIGHT");
+    } else {
+        snprintf(buff, sizeof(buff), "SPEED %02ld", keyerConfig.speedWPM);
+        LCD_Goto(0, 0);
+        LCD_SendString(buff);
+        LCD_Goto(1, 0);
+        LCD_SendString("IAMBIC  ");
+    }
+}
+
+void displayKeyerXmitSettings() {
+    LCD_Goto(0, 0);
+    LCD_SendString("XMIT MSG");
+    LCD_Goto(1, 0);
+    LCD_SendString("CFM=LOCK");
+}
+
+void displayKeyerSaveSettings() {
+    LCD_Goto(0, 0);
+    LCD_SendString("SAVE MSG");
+    LCD_Goto(1, 0);
+    LCD_SendString("CFM=LOCK");
+}
+
+void displayKeyerPlaySettings() {
+    LCD_Goto(0, 0);
+    LCD_SendString("PLAY MSG");
+    LCD_Goto(1, 0);
+    LCD_SendString("CFM=LOCK");  
+}
+
+bool anyButtonPressed() {
+    return (buttonNextPressed() == BUTTON_STATUS_PRESSED) ||
+        (buttonFastPressed() == BUTTON_STATUS_PRESSED) ||
+        (buttonLockPressed() == BUTTON_STATUS_PRESSED) ||
+        (buttonPrevPressed() == BUTTON_STATUS_PRESSED) ||
+        (buttonClarPressed() == BUTTON_STATUS_PRESSED) ||
+        (buttonKeyerPressed() == BUTTON_STATUS_PRESSED) ||
+        buttonDitPressed() || buttonDahPressed();
+}
+
+
+uint32_t lastSWRCheckTime = 0;
+double lastSWRValue = 0.0;
+
+void resetSMeter() {
+    lastSWRCheckTime = 0;
+    lastSWRValue = 0.0;
+}
+
+void updateSMeter() {
+    double v_fwd, v_ref, ratio, swr;
+    uint32_t tstamp = HAL_GetTick();
+    if(tstamp - lastSWRCheckTime < 100) {
+        return;
+    }
+
+    v_fwd = ADC_ReadVoltage(ADC_CHANNEL_0);
+    if(v_fwd <= 0 ) {
+        return;
+    }
+
+    lastSWRCheckTime = tstamp;
+    v_ref = ADC_ReadVoltage(ADC_CHANNEL_1);
+    ratio = v_ref / v_fwd;
+    swr = (1+ratio)/(1-ratio);
+
+    if(abs(lastSWRValue - swr) <= 0.2) {
+        return;
+    }
+
+    LCD_Goto(1, 5);
+    if(swr >= 10) {
+        LCD_SendString("10+");
+    } else {
+        char buff[8];
+        snprintf(buff, sizeof(buff), "%.1f", swr);
+        LCD_SendString(buff);
+    }
+
+    lastSWRValue = swr;
+}
+
+void playbackSavedMessage(bool renderCounter, bool renderSMeter) {
+    int32_t sendStart = 0;
+    int32_t sendFinish = 0;
+    bool isSending = false;
+    int32_t now;
+    size_t symbolsLeft = keyerMessage.length;
+    size_t currentSymbolIdx = 0;
+    char c;
+
+    if(renderCounter) {
+        char buff[16];
+        snprintf(buff, sizeof(buff), "%03d", symbolsLeft);
+        LCD_Goto(0, 5);
+        LCD_SendString(buff);
+    }
+
+    while(symbolsLeft > 0) {
+        now = HAL_GetTick();
+
+        if((!isSending) && (now >= sendStart)) {
+            // time to send the next symbol
+            c = keyerMessage.message[currentSymbolIdx];
+            isSending = true;
+
+            if(c == '/') {
+                // Pause between words.
+                // We already waited for ditTimeMs, thus -1.
+                // Act as if we are sending another symbol,
+                // although keyDown() is not called.
+                sendFinish = now + keyerConfig.ditTimeMs*(7-1);
+            } else if(c == ' ') {
+                // Pause between letters.
+                // We already waited for ditTimeMs, thus -1.
+                // Act as if we are sending another symbol,
+                // although keyDown() is not called.
+                sendFinish = now + keyerConfig.ditTimeMs*(3-1);
+            } else if(c == '-') {
+                keyDown();
+                sendFinish = now + keyerConfig.ditTimeMs*3;
+            } else { // c == '.'
+                keyDown();
+                sendFinish = now + keyerConfig.ditTimeMs;
+            }
+        }
+
+        if(isSending && (now >= sendFinish)) {
+            // another symbol was sent
+            keyUp();
+            symbolsLeft--;
+            currentSymbolIdx++;
+            isSending = false;
+
+            // `ditTimeMs` is a pause between dits and dahs
+            sendStart = now + keyerConfig.ditTimeMs;
+
+            if(renderCounter) {
+                char buff[16];
+                snprintf(buff, sizeof(buff), "%03d", symbolsLeft);
+                LCD_Goto(0, 5);
+                LCD_SendString(buff);
+            }
+        }
+
+        if(anyButtonPressed()) {
+            break;
+        }
+
+        if(renderSMeter) {
+            updateSMeter();
+        }
+
+        HAL_Delay(5);
+    }
+
+    keyUp();
+
+    if(renderCounter) {
+        LCD_Goto(0, 5);
+        LCD_SendString("MSG");
+    }
+}
+
+void enterKeyerSaveMode() {
+    bool keyerInitDone = false;
+    uint32_t keyerInitTime = 0;
+    char buff[8];
+    size_t spaceLeft, prevSpaceLeft;
+
+    iambicKeyerLogReset();
+    spaceLeft = iambicKeyerLogSpaceLeft();
+    prevSpaceLeft = spaceLeft;
+
+    snprintf(buff, sizeof(buff), "%03d", spaceLeft);
+    LCD_Goto(0, 5);
+    LCD_SendString(buff);
 
     for(;;) {
         bool ditPressed = buttonDitPressed();
         bool dahPressed = buttonDahPressed();
 
         if((ditPressed || dahPressed)) {
-            CWTrainerModeEnterTime = HAL_GetTick();
-            if(!inCWTrainerMode) {
-                enterCWTrainerMode();
-                if(keyerConfig.straightKey) {
-                    initStraightKeyer();
-                } else {
-                    initIambicKeyer();
-                }
+            keyerInitTime = HAL_GetTick();
+            if(!keyerInitDone) {
+                keyerInitDone = true;
+                // use iambic keyer even in straight key mode
+                initIambicKeyer();
             }
         } else {
             uint32_t tstamp = HAL_GetTick();
-            if(tstamp - CWTrainerModeEnterTime > keyerConfig.ditTimeMs*8) {
-                leaveCWTrainerMode();
+            if(tstamp - keyerInitTime > keyerConfig.ditTimeMs*8) {
+                keyerInitDone = false;
             }
         }
 
-        if(inCWTrainerMode) {
-            if(keyerConfig.straightKey) {
-                processStraightKeyerLogic(ditPressed);
-            } else {
-                processIambicKeyerLogic(ditPressed, dahPressed);
+        if(keyerInitDone) {
+            processIambicKeyerLogic(ditPressed, dahPressed);
+        }
+
+        if(buttonLockPressed() == BUTTON_STATUS_PRESSED) {
+            // SAVE confirmed
+            keyerMessage.length = iambicKeyerLogSize();
+            memcpy(keyerMessage.message, iambicKeyerLog, keyerMessage.length);
+            
+            // truncate the pauses in the end of the message
+            while(keyerMessage.length > 0) {
+                if(keyerMessage.message[keyerMessage.length-1] == ' ') {
+                    keyerMessage.length--;
+                    continue;
+                }
+
+                if(keyerMessage.message[keyerMessage.length-1] == '/') {
+                    keyerMessage.length--;
+                    continue;
+                }
+
+                break;
             }
-        }
 
-        int32_t delta = getDelta(&htim2, &prevCounter, MULTI_DELTA_MULT, MULTI_DELTA_DIV);
-        if(delta != 0) {
-            // reset the keyer logic if dit or dah is presset
-            leaveCWTrainerMode();
-            keyUp();
-            changeKeyerSpeed(delta);
-            displayKeyerSettings();
-        }
-
-        if(buttonKeyerPressed() == BUTTON_STATUS_PRESSED) {
+            saveKeyerMessage();
             break;
+        } else if(buttonKeyerPressed() == BUTTON_STATUS_PRESSED) {
+            // SAVE aborted
+            break;
+        }
+
+        spaceLeft = iambicKeyerLogSpaceLeft();
+        if(spaceLeft != prevSpaceLeft) {
+            // re-render
+            snprintf(buff, sizeof(buff), "%03d", spaceLeft);
+            LCD_Goto(0, 5);
+            LCD_SendString(buff);
+            prevSpaceLeft = spaceLeft;
         }
 
         HAL_Delay(5);
     }
 
-    leaveCWTrainerMode();
+    LCD_Goto(0, 5);
+    LCD_SendString("MSG");
+}
+
+void loopKeyer(bool* startSendingSavedMessage) {
+    bool keyerInitDone = false;
+    uint32_t keyerInitTime = 0;
+    int32_t prevCounter = 0;
+
+    // init the last state
+    if(keyerConfig.settingsPage == KEYER_SETINGS_PAGE_SPEED) {
+        // reset the counter
+        (void)getDelta(&htim2, &prevCounter, MULTI_DELTA_MULT, MULTI_DELTA_DIV);
+        displayKeyerSpeedSettings();
+    } else if(keyerConfig.settingsPage == KEYER_SETINGS_PAGE_XMIT) {
+        displayKeyerXmitSettings();
+    } else if(keyerConfig.settingsPage == KEYER_SETINGS_PAGE_SAVE) {
+        displayKeyerSaveSettings();
+    } else { // keyerConfig.settingsPage == KEYER_SETINGS_PAGE_PLAY
+        displayKeyerPlaySettings();
+    }
+
+    for(;;) {
+        if(keyerConfig.settingsPage == KEYER_SETINGS_PAGE_SPEED) {
+            bool ditPressed = buttonDitPressed();
+            bool dahPressed = buttonDahPressed();
+
+            if((ditPressed || dahPressed)) {
+                keyerInitTime = HAL_GetTick();
+                if(!keyerInitDone) {
+                    keyerInitDone = true;
+                    if(keyerConfig.straightKey) {
+                        initStraightKeyer();
+                    } else {
+                        initIambicKeyer();
+                    }
+                }
+            } else {
+                uint32_t tstamp = HAL_GetTick();
+                if(tstamp - keyerInitTime > keyerConfig.ditTimeMs*8) {
+                    keyerInitDone = false;
+                }
+            }
+
+            if(keyerInitDone) {
+                if(keyerConfig.straightKey) {
+                    processStraightKeyerLogic(ditPressed);
+                } else {
+                    processIambicKeyerLogic(ditPressed, dahPressed);
+                }
+            }
+
+            int32_t delta = getDelta(&htim2, &prevCounter, MULTI_DELTA_MULT, MULTI_DELTA_DIV);
+            if(delta != 0) {
+                // don't forget to re-init the keyer next time
+                keyerInitDone = false;
+
+                keyUp();
+                changeKeyerSpeed(delta);
+
+                // re-render
+                displayKeyerSpeedSettings();
+            }
+
+            if(buttonNextPressed() == BUTTON_STATUS_PRESSED) {
+                displayKeyerXmitSettings();
+                keyerConfig.settingsPage = KEYER_SETINGS_PAGE_XMIT;
+            } else if(buttonPrevPressed() == BUTTON_STATUS_PRESSED) {
+                displayKeyerPlaySettings();
+                keyerConfig.settingsPage = KEYER_SETINGS_PAGE_PLAY;
+            } else if(buttonKeyerPressed() == BUTTON_STATUS_PRESSED) {
+                break;
+            }
+        } else if(keyerConfig.settingsPage == KEYER_SETINGS_PAGE_XMIT) {
+            if(buttonNextPressed() == BUTTON_STATUS_PRESSED) {
+                displayKeyerSaveSettings();
+                keyerConfig.settingsPage = KEYER_SETINGS_PAGE_SAVE;
+            } else if(buttonPrevPressed() == BUTTON_STATUS_PRESSED) {
+                // reset the counter
+                (void)getDelta(&htim2, &prevCounter, MULTI_DELTA_MULT, MULTI_DELTA_DIV);
+                displayKeyerSpeedSettings();
+                keyerConfig.settingsPage = KEYER_SETINGS_PAGE_SPEED;
+            } else if(buttonLockPressed() == BUTTON_STATUS_PRESSED) {
+                *startSendingSavedMessage = true;
+                break;
+            } else if(buttonKeyerPressed() == BUTTON_STATUS_PRESSED) {
+                break;
+            }
+        } else if(keyerConfig.settingsPage == KEYER_SETINGS_PAGE_SAVE) {
+            if(buttonNextPressed() == BUTTON_STATUS_PRESSED) {
+                displayKeyerPlaySettings();
+                keyerConfig.settingsPage = KEYER_SETINGS_PAGE_PLAY;
+            } else if(buttonPrevPressed() == BUTTON_STATUS_PRESSED) {
+                displayKeyerXmitSettings();
+                keyerConfig.settingsPage = KEYER_SETINGS_PAGE_XMIT;
+            } else if(buttonLockPressed() == BUTTON_STATUS_PRESSED) {
+                enterKeyerSaveMode();
+            } else if(buttonKeyerPressed() == BUTTON_STATUS_PRESSED) {
+                break;
+            }
+        } else { // keyerConfig.settingsPage == KEYER_SETINGS_PAGE_PLAY
+            if(buttonNextPressed() == BUTTON_STATUS_PRESSED) {
+                // reset the counter
+                (void)getDelta(&htim2, &prevCounter, MULTI_DELTA_MULT, MULTI_DELTA_DIV);
+                displayKeyerSpeedSettings();
+                keyerConfig.settingsPage = KEYER_SETINGS_PAGE_SPEED;
+            } else if(buttonPrevPressed() == BUTTON_STATUS_PRESSED) {
+                displayKeyerSaveSettings();
+                keyerConfig.settingsPage = KEYER_SETINGS_PAGE_SAVE;
+            } else if(buttonLockPressed() == BUTTON_STATUS_PRESSED) {
+                playbackSavedMessage(true, false);
+            } else if(buttonKeyerPressed() == BUTTON_STATUS_PRESSED) {
+                break;
+            }
+        }
+
+        HAL_Delay(5);
+    }
+
     saveKeyerConfig();
     displayFrequency();
     displaySMeterOrMode(true);
@@ -815,8 +1249,6 @@ void loopMain() {
     static int32_t prevMainCounter = 0;
     static int32_t prevMultiCounter = 0;
     static uint32_t transmitModeEnterTime = 0;
-    static uint32_t lastSWRCheckTime = 0;
-    static double lastSWRValue = 0.0;
     static bool prevClarModeRit = false;
     bool ditPressed = buttonDitPressed();
     bool dahPressed = buttonDahPressed();
@@ -825,8 +1257,7 @@ void loopMain() {
         transmitModeEnterTime = HAL_GetTick();
         if(!inTransmitMode) {
             ensureTransmitMode();
-            lastSWRCheckTime = 0;
-            lastSWRValue = 0.0;
+            resetSMeter();
 
             if(keyerConfig.straightKey) {
                 initStraightKeyer();
@@ -851,30 +1282,7 @@ void loopMain() {
             processIambicKeyerLogic(ditPressed, dahPressed);
         }
 
-        uint32_t tstamp = HAL_GetTick();
-        if(tstamp - lastSWRCheckTime > 100) {
-            double v_fwd = ADC_ReadVoltage(ADC_CHANNEL_0);
-            if(v_fwd > 0) {
-                double v_ref = ADC_ReadVoltage(ADC_CHANNEL_1);
-                double ratio = v_ref / v_fwd;
-                double swr = (1+ratio)/(1-ratio);
-
-                if(abs(lastSWRValue - swr) > 0.2) {
-                    LCD_Goto(1, 5);
-                    if(swr >= 10) {
-                        LCD_SendString("10+");
-                    } else {
-                        char buff[8];
-                        snprintf(buff, sizeof(buff), "%.1f", swr);
-                        LCD_SendString(buff);
-                    }
-
-                    lastSWRValue = swr;
-                }
-
-                lastSWRCheckTime = tstamp;
-            }
-        }
+        updateSMeter();
     } else {
         int32_t delta = getDelta(&htim1, &prevMainCounter, MAIN_DELTA_MULT, MAIN_DELTA_DIV);
         if(delta != 0) {
@@ -943,10 +1351,29 @@ void loopMain() {
                 (void)getDelta(&htim2, &prevMultiCounter, MULTI_DELTA_MULT, MULTI_DELTA_DIV);
                 displaySMeterOrMode(true);
             } else if(buttonKeyerPressed() == BUTTON_STATUS_PRESSED) {
-                loopKeyer();
+                bool startSendingSavedMessage = false;
+                loopKeyer(&startSendingSavedMessage);
                 // discard any changes in counters
                 (void)getDelta(&htim1, &prevMainCounter, MAIN_DELTA_MULT, MAIN_DELTA_DIV);
                 (void)getDelta(&htim2, &prevMultiCounter, MULTI_DELTA_MULT, MULTI_DELTA_DIV);
+
+                if(startSendingSavedMessage) {
+                    // process XMIT MSG
+                    ensureTransmitMode();
+                    resetSMeter();
+
+                    if(keyerConfig.straightKey) {
+                        initStraightKeyer();
+                    } else {
+                        initIambicKeyer();
+                    }
+
+                    playbackSavedMessage(false, true);
+                    transmitModeEnterTime = HAL_GetTick();
+
+                    // loopMain() will be called again from the main loop
+                    return; 
+                }
             }
         }
 
@@ -1018,6 +1445,7 @@ void init() {
     LCD_Clear();
 
     loadKeyerConfig();
+    loadKeyerMessage();
     displaySMeterOrMode(true);
 
     si5351_Init(si5351_correction);
