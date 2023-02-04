@@ -926,12 +926,12 @@ bool anyButtonPressed() {
 uint32_t lastSWRCheckTime = 0;
 double lastSWRValue = 0.0;
 
-void resetSMeter() {
+void resetSWRMeter() {
     lastSWRCheckTime = 0;
     lastSWRValue = 0.0;
 }
 
-void updateSMeter() {
+void updateSWRMeter() {
     double v_fwd, v_ref, ratio, swr;
     uint32_t tstamp = HAL_GetTick();
     if(tstamp - lastSWRCheckTime < 100) {
@@ -964,7 +964,7 @@ void updateSMeter() {
     lastSWRValue = swr;
 }
 
-void playbackSavedMessage(bool renderCounter, bool renderSMeter) {
+void playbackSavedMessage(bool renderCounter, bool renderSWRMeter) {
     int32_t sendStart = 0;
     int32_t sendFinish = 0;
     bool isSending = false;
@@ -1031,8 +1031,8 @@ void playbackSavedMessage(bool renderCounter, bool renderSMeter) {
             break;
         }
 
-        if(renderSMeter) {
-            updateSMeter();
+        if(renderSWRMeter) {
+            updateSWRMeter();
         }
 
         HAL_Delay(5);
@@ -1257,7 +1257,7 @@ void loopMain() {
         transmitModeEnterTime = HAL_GetTick();
         if(!inTransmitMode) {
             ensureTransmitMode();
-            resetSMeter();
+            resetSWRMeter();
 
             if(keyerConfig.straightKey) {
                 initStraightKeyer();
@@ -1282,7 +1282,7 @@ void loopMain() {
             processIambicKeyerLogic(ditPressed, dahPressed);
         }
 
-        updateSMeter();
+        updateSWRMeter();
     } else {
         int32_t delta = getDelta(&htim1, &prevMainCounter, MAIN_DELTA_MULT, MAIN_DELTA_DIV);
         if(delta != 0) {
@@ -1360,7 +1360,7 @@ void loopMain() {
                 if(startSendingSavedMessage) {
                     // process XMIT MSG
                     ensureTransmitMode();
-                    resetSMeter();
+                    resetSWRMeter();
 
                     if(keyerConfig.straightKey) {
                         initStraightKeyer();
