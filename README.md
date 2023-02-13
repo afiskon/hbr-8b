@@ -12,3 +12,8 @@ All HF bands QRP CW transceiver. This is an improved version of [HBR/3B](https:/
 * ~5W class C power amplifier
 * Has a S-meter and a SWR meter
 * Open-source firmware, schematic and 3D-printable enclosure
+
+Links:
+
+* Article (in Russian): https://eax.me/hbr-8b-transceiver/
+* Demo: https://www.youtube.com/watch?v=GlcS9r8nLz4
