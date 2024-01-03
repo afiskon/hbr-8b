@@ -46,6 +46,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <math.h>
 #include "si5351.h"
 #include "lcd.h"
 
@@ -304,16 +305,16 @@ double ADC_ReadVoltage(uint32_t ch) {
 
 // http://en.wikipedia.org/wiki/Jenkins_hash_function
 uint32_t jenkinsHash(const uint8_t *data, const size_t len) {
-  uint32_t hash, i;
-  for(hash = i = 0; i < len; ++i) {
-    hash += data[i];
-    hash += (hash << 10);
-    hash ^= (hash >> 6);
-  }
-  hash += (hash << 3);
-  hash ^= (hash >> 11);
-  hash += (hash << 15);
-  return hash;
+    uint32_t hash, i;
+    for(hash = i = 0; i < len; ++i) {
+        hash += data[i];
+        hash += (hash << 10);
+        hash ^= (hash >> 6);
+    }
+    hash += (hash << 3);
+    hash ^= (hash >> 11);
+    hash += (hash << 15);
+    return hash;
 }
 
 void loadKeyerMessage() {
@@ -939,16 +940,25 @@ void updateSWRMeter() {
     }
 
     v_fwd = ADC_ReadVoltage(ADC_CHANNEL_0);
-    if(v_fwd <= 0 ) {
+    if(v_fwd <= 0.2) {
+        /* not transmitting */
         return;
     }
 
     lastSWRCheckTime = tstamp;
     v_ref = ADC_ReadVoltage(ADC_CHANNEL_1);
-    ratio = v_ref / v_fwd;
-    swr = (1+ratio)/(1-ratio);
+    if(v_ref <= 0.2) {
+        v_ref = 0.0;
+    }
 
-    if(abs(lastSWRValue - swr) <= 0.2) {
+    if(v_ref > v_fwd) {
+        swr = 25.0;
+    } else {
+        ratio = v_ref / v_fwd;
+        swr = (1+ratio)/(1-ratio);
+    }
+
+    if(fabs(lastSWRValue - swr) <= 0.1) {
         return;
     }
 
@@ -1266,8 +1276,11 @@ void loopMain() {
             }
         }
     } else {
+        /* exit TX mode due to inactivity? */
         uint32_t tstamp = HAL_GetTick();
-        if((tstamp - transmitModeEnterTime > keyerConfig.ditTimeMs*15) && (inTransmitMode)) {
+        uint32_t delay = keyerConfig.straightKey ? 1000 : keyerConfig.ditTimeMs*15;
+
+        if((tstamp - transmitModeEnterTime > delay) && (inTransmitMode)) {
             ensureReceiveMode();
             // discard any changes in counters
             (void)getDelta(&htim1, &prevMainCounter, MAIN_DELTA_MULT, MAIN_DELTA_DIV);
